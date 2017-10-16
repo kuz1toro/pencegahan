@@ -116,7 +116,7 @@
 								</select>
 							</div>
 							</div>
-							<? php
+							<?php
 							echo form_close();
 							?>
 
@@ -139,9 +139,9 @@
 							</thead>
 							<tbody>
 								<?php
-								$rows=count($manufacturers);
+								$rows=count($permohonans);
 								$count = 1;
-								foreach($manufacturers as $row)
+								foreach($permohonans as $row)
 								{
 									if($row['StatusPermhn']==1){
 	                  $posisi='Pra Inspeksi';

@@ -287,8 +287,8 @@
 				</a>
 				<ul class="treeview-menu">
 					<li><a href="<?php echo site_url("disposisi/monitoring")?>">Monitoring</a></li>
-					<li><a href="<?php echo site_url("prainspeksi_permohonan/add_lhp_step1")?>"><i class="fa fa-plus-square"></i>Disposisi Permohonan</a></li>
-					<li><a href="<?php echo site_url("prainspeksi_permohonan/add_rekomtek_step1")?>"><i class="fa fa-plus-square"></i>Validasi Laporan</a></li>
+					<li><a href="<?php echo site_url("disposisi/Add_disposisi_step1")?>"><i class="fa fa-plus-square"></i>Disposisi Permohonan</a></li>
+					<li><a href="<?php echo site_url("disposisi/validasi")?>"><i class="fa fa-plus-square"></i>Validasi Laporan</a></li>
 				</ul>
 			</li>
 			<li class="treeview">

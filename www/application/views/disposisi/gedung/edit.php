@@ -66,7 +66,7 @@
 						<div class="form-group" style="">
 							<label class="col-sm-4 col-xs-12 control-label" for="NamaGedung" style="">Nama Gedung <a style="color:red">*</a></label>
 							<div class="col-sm-7 col-xs-12" style="">
-								<textarea type="text" class="form-control" name="NamaGedung" style="resize: none;" required><?php echo $manufacture[0]['NamaGedung']; ?></textarea>
+								<textarea type="text" class="form-control" name="NamaGedung" style="resize: none;" required><?php echo $gedungs[0]['NamaGedung']; ?></textarea>
 							</div>
 						</div>
 					</div>
@@ -74,13 +74,13 @@
 						<div class="form-group">
 							<label class="col-sm-4 col-xs-12 control-label" for="Alamat">Alamat</label>
 							<div class="col-sm-7 col-xs-12" style="">
-								<textarea type="text" class="form-control" name="Alamat"  style="resize: none;" required ><?php echo $manufacture[0]['Alamat']; ?></textarea>
+								<textarea type="text" class="form-control" name="Alamat"  style="resize: none;" required ><?php echo $gedungs[0]['Alamat']; ?></textarea>
 								<p class="help-block">Nama Jalan <a style="color:red">*</a></p>
 							</div>
 							<label class="col-sm-4 col-xs-12 control-label" for=""></label>
 							<div class="col-sm-2 col-xs-5" id="" style="">
 								<select class="form-control" name="Wilayah" value="" id="Wilayah" onchange="selectKec(this.options[this.selectedIndex].value)" >
-									<option value="<?php echo $manufacture[0]['Wilayah']; ?>"><?php echo $manufacture[0]['Wilayah']; ?></option>
+									<option value="<?php echo $gedungs[0]['Wilayah']; ?>"><?php echo $gedungs[0]['Wilayah']; ?></option>
 									<option value="Pusat">Pusat</option>
 									<option value="Utara">Utara</option>
 									<option value="Barat">Barat</option>
@@ -92,19 +92,19 @@
 							</div>
 							<div class="col-sm-5 col-xs-7" id="" style="">
 								<select class="form-control" id="kecamatan_dropdown" name="Kecamatan" onchange="selectKel(this.options[this.selectedIndex].value)">
-									<option value="<?php echo $manufacture[0]['Kecamatan']; ?>"><?php echo $manufacture[0]['Kecamatan']; ?></option>
+									<option value="<?php echo $gedungs[0]['Kecamatan']; ?>"><?php echo $gedungs[0]['Kecamatan']; ?></option>
 								</select>
 								<p class="help-block">Kecamatan</p>
 							</div>
 							<label class="col-sm-4 col-xs-12 control-label" for=""></label>
 							<div class="col-sm-5 col-xs-8" id="" style="">
 								<select class="form-control" id="kelurahan_dropdown" name="Kelurahan" onchange="showKodepos(this.options[this.selectedIndex].value)">
-									<option value="<?php echo $manufacture[0]['Kelurahan']; ?>"><?php echo $manufacture[0]['Kelurahan']; ?></option>
+									<option value="<?php echo $gedungs[0]['Kelurahan']; ?>"><?php echo $gedungs[0]['Kelurahan']; ?></option>
 								</select>
 								<p class="help-block">Kelurahan</p>
 							</div>
 							<div class="col-sm-2 col-xs-4" id="" style="">
-								<input type="text" class="form-control" name="KodePos" id="kodepos_dropdown" value= "<?php echo $manufacture[0]['KodePos']; ?>">
+								<input type="text" class="form-control" name="KodePos" id="kodepos_dropdown" value= "<?php echo $gedungs[0]['KodePos']; ?>">
 								<p class="help-block">Kode Pos</p>
 							</div>
 						</div>
@@ -115,16 +115,16 @@
 							<label class="col-sm-4 col-xs-12 control-label" for="Status">Data Gedung</label>
 							<div class="col-sm-3 col-xs-7" id="" style="">
 								<select class="form-control" name="Status" required >
-									<option value="<?php echo $manufacture[0]['Status']; ?>"><?php echo $manufacture[0]['Status']; ?></option>
-									<option value="Swasta" <?php if ($manufacture[0]['Status']=='Swasta'){echo 'hidden';}?>>Swasta</option>
-									<option value="Pemda DKI" <?php if ($manufacture[0]['Status']=='Pemda DKI'){echo 'hidden';}?>>Pemda DKI</option>
-									<option value="Pemerintah Non-DKI" <?php if ($manufacture[0]['Status']=='Pemerintah Non-DKI'){echo 'hidden';}?>>Pemerintah Non-DKI</option> </select>
+									<option value="<?php echo $gedungs[0]['Status']; ?>"><?php echo $gedungs[0]['Status']; ?></option>
+									<option value="Swasta" <?php if ($gedungs[0]['Status']=='Swasta'){echo 'hidden';}?>>Swasta</option>
+									<option value="Pemda DKI" <?php if ($gedungs[0]['Status']=='Pemda DKI'){echo 'hidden';}?>>Pemda DKI</option>
+									<option value="Pemerintah Non-DKI" <?php if ($gedungs[0]['Status']=='Pemerintah Non-DKI'){echo 'hidden';}?>>Pemerintah Non-DKI</option> </select>
 								</select>
 								<p class="help-block">Status Kepemilikan <a style="color:red">*</a></p>
 							</div>
 							<div class="col-sm-3 col-xs-5" id="" style="">
 								<select class="form-control" name="Fungsi" required >
-									<option value="<?php echo $manufacture[0]['Fungsi']; ?>"><?php echo $manufacture[0]['Fungsi']; ?></option>
+									<option value="<?php echo $gedungs[0]['Fungsi']; ?>"><?php echo $gedungs[0]['Fungsi']; ?></option>
 									<option value="Perkantoran">Perkantoran</option>
 									<option value="Perdagangan">Perdagangan</option>
 									<option value="Hotel">Hotel</option>
@@ -141,15 +141,15 @@
 							</div>
 							<label class="col-sm-4 col-xs-12 control-label" for=""></label>
 							<div class="col-sm-2 col-xs-4" style="">
-								<input type="number" class="form-control" name="JmlMasaBang" id="" placeholder="" value= "<?php echo $manufacture[0]['JmlMasaBang']; ?>" required >
+								<input type="number" class="form-control" name="JmlMasaBang" id="" placeholder="" value= "<?php echo $gedungs[0]['JmlMasaBang']; ?>" required >
 								<p class="help-block">Jml Tower <a style="color:red">*</a></p>
 							</div>
 							<div class="col-sm-2 col-xs-4" style="">
-								<input type="number" class="form-control" name="Lantai" id="" placeholder="" value= "<?php echo $manufacture[0]['Lantai']; ?>" required >
+								<input type="number" class="form-control" name="Lantai" id="" placeholder="" value= "<?php echo $gedungs[0]['Lantai']; ?>" required >
 								<p class="help-block">Jml Lantai <a style="color:red">*</a></p>
 							</div>
 							<div class="col-sm-2 col-xs-4" style="">
-								<input type="number" class="form-control" name="Basement" id="" placeholder="" value= "<?php echo $manufacture[0]['Basement']; ?>" required >
+								<input type="number" class="form-control" name="Basement" id="" placeholder="" value= "<?php echo $gedungs[0]['Basement']; ?>" required >
 								<p class="help-block">Jml Bismen <a style="color:red">*</a></p>
 							</div>
 						</div>
@@ -159,11 +159,11 @@
 						<div class="form-group">
 							<label class="col-sm-4 col-xs-12 control-label" for="NoImb">IMB</label>
 							<div class="col-sm-4 col-xs-12">
-								<input type="text" class="form-control" name="NoImb" id="" value= "<?php echo $manufacture[0]['NoImb']; ?>">
+								<input type="text" class="form-control" name="NoImb" id="" value= "<?php echo $gedungs[0]['NoImb']; ?>">
 								<p class="help-block">No IMB</p>
 							</div>
 							<div class="col-sm-3 col-xs-12">
-								<input type="text" class="form-control" name="TglImb" id="Datepicker"  value= "<?php echo sqlDate2html($manufacture[0]['TglImb']); ?>">
+								<input type="text" class="form-control" name="TglImb" id="Datepicker"  value= "<?php echo sqlDate2html($gedungs[0]['TglImb']); ?>">
 								<p class="help-block">Tgl IMB</p>
 							</div>
 						</div>
@@ -173,11 +173,11 @@
 						<div class="form-group">
 							<label class="col-sm-4 col-xs-12 control-label" for="NoRekomtekAkhir">Rekomtek Terakhir</label>
 							<div class="col-sm-4 col-xs-12">
-								<input type="text" class="form-control" name="NoRekomtekAkhir" id=""  value= "<?php echo $manufacture[0]['NoRekomtekAkhir']; ?>">
+								<input type="text" class="form-control" name="NoRekomtekAkhir" id=""  value= "<?php echo $gedungs[0]['NoRekomtekAkhir']; ?>">
 								<p class="help-block">No Rekomtek</p>
 							</div>
 							<div class="col-sm-3 col-xs-12">
-								<input type="text" class="form-control" name="TglRekomtekAkhir" id="Datepicker1" value= "<?php echo sqlDate2html($manufacture[0]['TglRekomtekAkhir']); ?>">
+								<input type="text" class="form-control" name="TglRekomtekAkhir" id="Datepicker1" value= "<?php echo sqlDate2html($gedungs[0]['TglRekomtekAkhir']); ?>">
 								<p class="help-block">Tgl Rekomtek</p>
 							</div>
 						</div>
@@ -187,11 +187,11 @@
 						<div class="form-group">
 							<label class="col-sm-4 col-xs-12 control-label" for="NoSlfAkhir">SLF Terakhir</label>
 							<div class="col-sm-4 col-xs-12">
-								<input type="text" class="form-control" name="NoSlfAkhir" id="" value= "<?php echo $manufacture[0]['NoSlfAkhir']; ?>">
+								<input type="text" class="form-control" name="NoSlfAkhir" id="" value= "<?php echo $gedungs[0]['NoSlfAkhir']; ?>">
 								<p class="help-block">No SLF</p>
 							</div>
 							<div class="col-sm-3 col-xs-12">
-								<input type="text" class="form-control" name="TglSlfAkhir" id="Datepicker2"  value= "<?php echo sqlDate2html($manufacture[0]['TglSlfAkhir']); ?>">
+								<input type="text" class="form-control" name="TglSlfAkhir" id="Datepicker2"  value= "<?php echo sqlDate2html($gedungs[0]['TglSlfAkhir']); ?>">
 								<p class="help-block">Tgl SLF</p>
 							</div>
 						</div>
@@ -201,11 +201,11 @@
 						<div class="form-group">
 							<label class="col-sm-4 col-xs-12 control-label" for="NoSkkAkhir">SKK Terakhir</label>
 							<div class="col-sm-4 col-xs-12">
-								<input type="text" class="form-control" name="NoSkkAkhir" id=""  value= "<?php echo $manufacture[0]['NoSkkAkhir']; ?>">
+								<input type="text" class="form-control" name="NoSkkAkhir" id=""  value= "<?php echo $gedungs[0]['NoSkkAkhir']; ?>">
 								<p class="help-block">No SKK</p>
 							</div>
 							<div class="col-sm-3 col-xs-12">
-								<input type="text" class="form-control" name="TglSkkAkhir" id="Datepicker3" value= "<?php echo sqlDate2html($manufacture[0]['TglSkkAkhir']); ?>">
+								<input type="text" class="form-control" name="TglSkkAkhir" id="Datepicker3" value= "<?php echo sqlDate2html($gedungs[0]['TglSkkAkhir']); ?>">
 								<p class="help-block">Tgl SKK</p>
 							</div>
 						</div>
@@ -215,11 +215,11 @@
 						<div class="form-group">
 							<label class="col-sm-4 col-xs-12 control-label" for="NoLhp">LHP Terakhir</label>
 							<div class="col-sm-4 col-xs-12">
-								<input type="text" class="form-control" name="NoLhp" id="" value= "<?php echo $manufacture[0]['NoLhp']; ?>">
+								<input type="text" class="form-control" name="NoLhp" id="" value= "<?php echo $gedungs[0]['NoLhp']; ?>">
 								<p class="help-block">No LHP</p>
 							</div>
 							<div class="col-sm-3 col-xs-12">
-								<input type="text" class="form-control" name="TglLhp" id="Datepicker4"  value= "<?php echo sqlDate2html($manufacture[0]['TglLhp']); ?>">
+								<input type="text" class="form-control" name="TglLhp" id="Datepicker4"  value= "<?php echo sqlDate2html($gedungs[0]['TglLhp']); ?>">
 								<p class="help-block">Tgl LHP</p>
 							</div>
 						</div>
@@ -229,7 +229,7 @@
 						<div class="form-group">
 							<label class="col-sm-4 col-xs-12 control-label" for="Keterangan">Keterangan/ Catatan</label>
 							<div class="col-sm-6 col-xs-12" style="">
-								<textarea class="form-control" id="Keterangan" name="Keterangan" style="resize: none;"><?php echo $manufacture[0]['Keterangan']; ?></textarea>
+								<textarea class="form-control" id="Keterangan" name="Keterangan" style="resize: none;"><?php echo $gedungs[0]['Keterangan']; ?></textarea>
 							</div>
 						</div>
 					</div>

@@ -131,7 +131,7 @@ class Disposisi extends CI_Controller {
 		//the code below wel reload the current data
 
 		//product data
-		$data['manufacture'] = $this->gedung_model->get_gedung_by_id($id);
+		$data['gedungs'] = $this->gedung_model->get_gedung_by_id($id);
 		//load the view
 		$data['main_content'] = 'disposisi/gedung/edit';
 		$this->load->view('disposisi/includes/template', $data);
@@ -248,7 +248,7 @@ class Disposisi extends CI_Controller {
 		//use gedung lib untuk paginasi
 		$data = $this->disposisi_permohonan->list_permohonan($search_string, $search_in, $order, $order_type, $this->uri->segment(3), $config['per_page'], $for);
 
-		$config['total_rows'] = $data['count_products'];
+		$config['total_rows'] = $data['count_permohonans'];
 
 		//initializate the panination helper
 		$this->pagination->initialize($config);
@@ -296,7 +296,8 @@ class Disposisi extends CI_Controller {
 					'TglDisKasi' => htmlDate2sqlDate($this->input->post('TglDisKasi')),
 					'TglPerbalST' => htmlDate2sqlDate($this->input->post('TglPerbalST')),
 					'Pokja' => $this->input->post('Pokja'),
-					'KaInsp' => $this->input->post('KaInsp')
+					'KaInsp' => $this->input->post('KaInsp'),
+					'StatusPermhn' => $this->input->post('StatusPermhn')
 				);
 				//if the insert has returned true then we show the flash message
 				if($this->permohonan_model->update_permohonan($id, $data_to_store) == TRUE){
@@ -316,8 +317,8 @@ class Disposisi extends CI_Controller {
 
 		//product data
 		//$data['manufacture'] = $this->permohonan_model->get_permohonan_dan_gedung_by_id($id);
-		$data['manufacture'] = $this->permohonan_model->get_permohonan_by_id($id);
-		$data['gedung'] = $this->gedung_model->get_gedung_by_id($data['manufacture'][0]['NamaGedung_id']);
+		$data['permohonan'] = $this->permohonan_model->get_permohonan_by_id($id);
+		$data['gedung'] = $this->gedung_model->get_gedung_by_id($data['permohonan'][0]['NamaGedung_id']);
 		//load the view
 		$data['main_content'] = 'disposisi/permohonan/edit';
 		$this->load->view('disposisi/includes/template', $data);
@@ -344,6 +345,9 @@ class Disposisi extends CI_Controller {
 	public function Add_disposisi_step1()
 	{
 		//all the posts sent by the view
+		$this->load->library('disposisi_permohonan');
+		$for = 'disposisi';
+		//all the posts sent by the view
 		$search_string = $this->input->post('search_string');
 		$search_in = $this->input->post('search_in');
 		$order = $this->input->post('order');
@@ -351,133 +355,15 @@ class Disposisi extends CI_Controller {
 
 		//pagination settings
 		$config['per_page'] = $this->per_page;
-
 		$config['base_url'] = base_url().'disposisi/Add_disposisi_step1';
-		$config['use_page_numbers'] = TRUE;
-		$config['num_links'] = 10;
-		$config['full_tag_open'] = '<ul class="pagination">';
-		$config['full_tag_close'] = '</ul>';
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
-		$config['cur_tag_open'] = '<li class="active"><span>';
-		$config['cur_tag_close'] = '<span class="sr-only">(current)</span></span></li>';
-		$config['prev_tag_open'] = '<li>';
-		$config['prev_tag_close'] = '</li>';
-		$config['next_tag_open'] = '<li>';
-		$config['next_tag_close'] = '</li>';
-		$config['first_link'] = '&laquo;';
-		$config['prev_link'] = '&lsaquo;';
-		$config['last_link'] = '&raquo;';
-		$config['next_link'] = '&rsaquo;';
-		$config['first_tag_open'] = '<li>';
-		$config['first_tag_close'] = '</li>';
-		$config['last_tag_open'] = '<li>';
-		$config['last_tag_close'] = '</li>';
 
 		//limit end
 		$page = $this->uri->segment(3);
 
-		//math to get the initial record to be select in the database
-		$limit_end = ($page * $config['per_page']) - $config['per_page'];
-		if ($limit_end < 0){
-			$limit_end = 0;
-		}
+		//use gedung lib untuk paginasi
+		$data = $this->disposisi_permohonan->list_permohonan($search_string, $search_in, $order, $order_type, $this->uri->segment(3), $config['per_page'], $for);
 
-		//if order type was changed
-		if($order_type){
-			$filter_session_data['order_type'] = $order_type;
-		}
-		else{
-			//we have something stored in the session?
-			if($this->session->userdata('order_type')){
-				$order_type = $this->session->userdata('order_type');
-			}else{
-				//if we have nothing inside session, so it's the default "Asc"
-				$order_type = 'Asc';
-			}
-		}
-		//make the data type var avaible to our view
-		$data['order_type_selected'] = $order_type;
-
-
-		//we must avoid a page reload with the previous session data
-		//if any filter post was sent, then it's the first time we load the content
-		//in this case we clean the session filter data
-		//if any filter post was sent but we are in some page, we must load the session data
-
-		//filtered && || paginated
-		if($search_string !== false && $order !== false || $this->uri->segment(3) == true){
-
-			/*
-			The comments here are the same for line 79 until 99
-
-			if post is not null, we store it in session data array
-			if is null, we use the session data already stored
-			we save order into the the var to load the view with the param already selected
-			*/
-			if($search_string){
-				$filter_session_data['search_string_selected'] = $search_string;
-				$filter_session_data['search_in_field'] = $search_in;
-			}else{
-				$search_string = $this->session->userdata('search_string_selected');
-				$search_in = $this->session->userdata('search_in_field');
-			}
-			$data['search_string_selected'] = $search_string;
-			$data['search_in_field'] = $search_in;
-
-			if($order){
-				$filter_session_data['order'] = $order;
-			}
-			else{
-				$order = $this->session->userdata('order');
-			}
-			$data['order'] = $order;
-
-			//save session data into the session
-			if(isset($filter_session_data)){
-				$this->session->set_userdata($filter_session_data);
-			}
-
-			//fetch sql data into arrays
-			$data['count_products']= $this->permohonan_model->count_permohonan_disposisi($search_string, $search_in, $order);
-			$config['total_rows'] = $data['count_products'];
-
-			//fetch sql data into arrays
-			if($search_string){
-				if($order){
-					$data['manufacturers'] = $this->permohonan_model->get_permohonan_disposisi($search_string, $search_in, $order, $order_type, $config['per_page'],$limit_end);
-				}else{
-					$data['manufacturers'] = $this->permohonan_model->get_permohonan_disposisi($search_string, $search_in, '', $order_type, $config['per_page'],$limit_end);
-				}
-			}else{
-				if($order){
-					$data['manufacturers'] = $this->permohonan_model->get_permohonan_disposisi('', $search_in, $order, $order_type, $config['per_page'],$limit_end);
-				}else{
-					$data['manufacturers'] = $this->permohonan_model->get_permohonan_disposisi('', $search_in, '', $order_type, $config['per_page'],$limit_end);
-				}
-			}
-
-		}else{
-
-			//clean filter data inside section
-			$filter_session_data['manufacture_selected'] = null;
-			$filter_session_data['search_string_selected'] = null;
-			$filter_session_data['search_in_field'] = null;
-			$filter_session_data['order'] = null;
-			$filter_session_data['order_type'] = null;
-			$this->session->set_userdata($filter_session_data);
-
-			//pre selected options
-			$data['search_string_selected'] = '';
-			$data['search_in_field'] = 'NamaPengelola';
-			$data['order'] = 'id';
-
-			//fetch sql data into arrays
-			$data['count_products']= $this->permohonan_model->count_permohonan_disposisi();
-			$data['manufacturers'] = $this->permohonan_model->get_permohonan_disposisi('', 'NamaPengelola', '', $order_type, $config['per_page'],$limit_end);
-			$config['total_rows'] = $data['count_products'];
-
-		}//!isset($search_string) && !isset($order)
+		$config['total_rows'] = $data['count_permohonans'];
 
 		//initializate the panination helper
 		$this->pagination->initialize($config);
@@ -491,8 +377,8 @@ class Disposisi extends CI_Controller {
 	public function Add_disposisi_step2()
 	{
 		//product id
-		$id = $this->uri->segment(4);
-		$data['manufacture'] = $this->permohonan_model->get_permohonan_dan_gedung_by_id($id);
+		$id = $this->uri->segment(3);
+		$data['permhn_n_gedung'] = $this->permohonan_model->get_permohonan_dan_gedung_by_id($id);
 		//load the view
 		$data['main_content'] = 'disposisi/permohonan/step2';
 		$this->load->view('disposisi/includes/template', $data);
@@ -753,7 +639,7 @@ class Disposisi extends CI_Controller {
 		}
 		//load the view
 		$data['main_content'] = 'disposisi/permohonan/result_validasi';
-		$this->load->view('disposisi/includes/mytemplate', $data);
+		$this->load->view('disposisi/includes/template', $data);
 		//redirect('prainspeksi/Add_lhp_step1');
 	}
 

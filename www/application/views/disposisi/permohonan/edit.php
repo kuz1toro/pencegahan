@@ -113,15 +113,15 @@
 							<div class="form-group " style="">
 								<label class="col-sm-12 control-label" for="NamaPengelola">Data Pengelola</label>
 								<div class="col-sm-12 col-xs-12" style="">
-									<input type="text" class="form-control" name="NamaPengelola" value= "<?php echo $manufacture[0]['NamaPengelola']; ?>" required >
+									<input type="text" class="form-control" name="NamaPengelola" value= "<?php echo $permohonan[0]['NamaPengelola']; ?>" required >
 									<p class="help-block">Nama Pengelola <a style="color:red">*</a></p>
 								</div>
 								<div class="col-sm-4 col-xs-12" style="">
-									<input type="text" class="form-control" name="NoTelpPengelola" id="" value= "<?php echo $manufacture[0]['NoTelpPengelola']; ?>">
+									<input type="text" class="form-control" name="NoTelpPengelola" id="" value= "<?php echo $permohonan[0]['NoTelpPengelola']; ?>">
 									<p class="help-block">No. Telp/ Hp </p>
 								</div>
 								<div class="col-sm-8 col-xs-12" style="">
-									<textarea type="text" class="form-control" name="AlamatPengelola"  style="resize: none;" ><?php echo $manufacture[0]['AlamatPengelola']; ?></textarea>
+									<textarea type="text" class="form-control" name="AlamatPengelola"  style="resize: none;" ><?php echo $permohonan[0]['AlamatPengelola']; ?></textarea>
 									<p class="help-block">Alamat Pengelola </p>
 								</div>
 							</div>
@@ -131,15 +131,15 @@
 							<div class="form-group ">
 								<label class="col-sm-12 control-label" for="NoPermhn">Permohonan</label>
 								<div class="col-sm-6 col-xs-12" style=" ">
-									<input type="text" class="form-control" name="NoPermhn" value= "<?php echo $manufacture[0]['NoPermhn']; ?>" >
+									<input type="text" class="form-control" name="NoPermhn" value= "<?php echo $permohonan[0]['NoPermhn']; ?>" >
 									<p class="help-block">No. Permohonan </p>
 								</div>
 								<div class="col-sm-6 col-xs-12" style=" ">
-									<input type="text" class="form-control" name="TglPermhn" id="Datepicker" value= "<?php echo sqlDate2html($manufacture[0]['TglPermhn']); ?>">
+									<input type="text" class="form-control" name="TglPermhn" id="Datepicker" value= "<?php echo sqlDate2html($permohonan[0]['TglPermhn']); ?>">
 									<p class="help-block">Tgl Permohonan </p>
 								</div>
 								<div class="col-sm-6 col-xs-12" style=" ">
-									<input type="text" class="form-control" name="TglSuratDiterima" id="Datepicker1" value= "<?php echo sqlDate2html($manufacture[0]['TglSuratDiterima']); ?>">
+									<input type="text" class="form-control" name="TglSuratDiterima" id="Datepicker1" value= "<?php echo sqlDate2html($permohonan[0]['TglSuratDiterima']); ?>">
 									<p class="help-block">Tgl Surat Diterima </p>
 								</div>
 							</div>
@@ -150,12 +150,12 @@
 								<label class="col-sm-12 control-label" for="TipePermhn">Jenis Permohonan</label>
 								<div class="col-sm-12 col-xs-12" style=" ">
 									<select class="form-control" name="TipePermhn" >
-										<option value="<?php echo $manufacture[0]['TipePermhn']; ?>"><?php echo $manufacture[0]['TipePermhn']; ?></option>
-										<option value="Sewaktu-waktu" <?php if ($manufacture[0]['TipePermhn']=='Sewaktu-waktu'){echo 'hidden';}?>>Sewaktu-waktu</option>
-										<option value="Rekomtek Sistem" <?php if ($manufacture[0]['TipePermhn']=='Rekomtek Sistem'){echo 'hidden';}?>>Rekomtek Sistem</option>
-										<option value="Rekomtek SKK" <?php if ($manufacture[0]['TipePermhn']=='Rekomtek SKK'){echo 'hidden';}?>>Rekomtek SKK</option>
-										<option value="SLF" <?php if ($manufacture[0]['TipePermhn']=='SLF'){echo 'hidden';}?>>SLF</option>
-										<option value="SLFn" <?php if ($manufacture[0]['TipePermhn']=='SLFn'){echo 'hidden';}?>>SLFn</option>
+										<option value="<?php echo $permohonan[0]['TipePermhn']; ?>"><?php echo $permohonan[0]['TipePermhn']; ?></option>
+										<option value="Sewaktu-waktu" <?php if ($permohonan[0]['TipePermhn']=='Sewaktu-waktu'){echo 'hidden';}?>>Sewaktu-waktu</option>
+										<option value="Rekomtek Sistem" <?php if ($permohonan[0]['TipePermhn']=='Rekomtek Sistem'){echo 'hidden';}?>>Rekomtek Sistem</option>
+										<option value="Rekomtek SKK" <?php if ($permohonan[0]['TipePermhn']=='Rekomtek SKK'){echo 'hidden';}?>>Rekomtek SKK</option>
+										<option value="SLF" <?php if ($permohonan[0]['TipePermhn']=='SLF'){echo 'hidden';}?>>SLF</option>
+										<option value="SLFn" <?php if ($permohonan[0]['TipePermhn']=='SLFn'){echo 'hidden';}?>>SLFn</option>
 									</select>
 								</div>
 							</div>
@@ -167,31 +167,31 @@
 								<div class="col-sm-6">
 									<div class="checkbox">
 										<label for="SuratPermohonan">
-											<input type="checkbox" class="minimal" name="SuratPermohonan" id="SuratPermohonan" value="1" <?php if ($manufacture[0]['SuratPermohonan']=='1'){echo 'checked';}?> >
+											<input type="checkbox" class="minimal" name="SuratPermohonan" id="SuratPermohonan" value="1" <?php if ($permohonan[0]['SuratPermohonan']=='1'){echo 'checked';}?> >
 											Surat Permohonan
 										</label>
 									</div>
 									<div class="checkbox">
 										<label for="DokTeknisGedung">
-											<input type="checkbox" class="minimal" name="DokTeknisGedung" id="DokTeknisGedung" value="1" <?php if ($manufacture[0]['DokTeknisGedung']=='1'){echo 'checked';}?> >
+											<input type="checkbox" class="minimal" name="DokTeknisGedung" id="DokTeknisGedung" value="1" <?php if ($permohonan[0]['DokTeknisGedung']=='1'){echo 'checked';}?> >
 											Dokumen Teknis Gedung
 										</label>
 									</div>
 									<div class="checkbox">
 										<label for="DokInventarisApar">
-											<input type="checkbox" class="minimal" name="DokInventarisApar" id="DokInventarisApar" value="1" <?php if ($manufacture[0]['DokInventarisApar']=='1'){echo 'checked';}?> >
+											<input type="checkbox" class="minimal" name="DokInventarisApar" id="DokInventarisApar" value="1" <?php if ($permohonan[0]['DokInventarisApar']=='1'){echo 'checked';}?> >
 											Dokumen Inventaris APAR
 										</label>
 									</div>
 									<div class="checkbox">
 										<label for="DokMKKG">
-											<input type="checkbox" class="minimal" name="DokMKKG" id="DokMKKG" value="1" <?php if ($manufacture[0]['DokMKKG']=='1'){echo 'checked';}?> >
+											<input type="checkbox" class="minimal" name="DokMKKG" id="DokMKKG" value="1" <?php if ($permohonan[0]['DokMKKG']=='1'){echo 'checked';}?> >
 											Dokumen MKKG
 										</label>
 									</div>
 									<div class="checkbox">
 										<label for="FtcpGambarSchematic">
-											<input type="checkbox" class="minimal" name="FtcpGambarSchematic" id="FtcpGambarSchematic" value="1" <?php if ($manufacture[0]['FtcpGambarSchematic']=='1'){echo 'checked';}?> >
+											<input type="checkbox" class="minimal" name="FtcpGambarSchematic" id="FtcpGambarSchematic" value="1" <?php if ($permohonan[0]['FtcpGambarSchematic']=='1'){echo 'checked';}?> >
 											Fc Gambar Schematik
 										</label>
 									</div>
@@ -199,25 +199,25 @@
 								<div class="col-sm-6">
 									<div class="checkbox">
 										<label for="FtcpSiteplan">
-											<input type="checkbox" class="minimal" name="FtcpSiteplan" id="FtcpSiteplan" value="1" <?php if ($manufacture[0]['FtcpSiteplan']=='1'){echo 'checked';}?> >
+											<input type="checkbox" class="minimal" name="FtcpSiteplan" id="FtcpSiteplan" value="1" <?php if ($permohonan[0]['FtcpSiteplan']=='1'){echo 'checked';}?> >
 											Fc Siteplan
 										</label>
 									</div>
 									<div class="checkbox">
 										<label for="FtcpRkkSlf">
-											<input type="checkbox" class="minimal" name="FtcpRkkSlf" id="FtcpRkkSlf" value="1" <?php if ($manufacture[0]['FtcpRkkSlf']=='1'){echo 'checked';}?> >
+											<input type="checkbox" class="minimal" name="FtcpRkkSlf" id="FtcpRkkSlf" value="1" <?php if ($permohonan[0]['FtcpRkkSlf']=='1'){echo 'checked';}?> >
 											Fotokopi SLF
 										</label>
 									</div>
 									<div class="checkbox">
 										<label for="FtcpIMB">
-											<input type="checkbox" class="minimal" name="FtcpIMB" id="FtcpIMB" value="1" <?php if ($manufacture[0]['FtcpIMB']=='1'){echo 'checked';}?> >
+											<input type="checkbox" class="minimal" name="FtcpIMB" id="FtcpIMB" value="1" <?php if ($permohonan[0]['FtcpIMB']=='1'){echo 'checked';}?> >
 											Fotokopi IMB
 										</label>
 									</div>
 									<div class="checkbox">
 										<label for="FtcpSkkAkhir">
-											<input type="checkbox" class="minimal" name="FtcpSkkAkhir" id="FtcpSkkAkhir" value="1" <?php if ($manufacture[0]['FtcpSkkAkhir']=='1'){echo 'checked';}?> >
+											<input type="checkbox" class="minimal" name="FtcpSkkAkhir" id="FtcpSkkAkhir" value="1" <?php if ($permohonan[0]['FtcpSkkAkhir']=='1'){echo 'checked';}?> >
 											Fotokopi SKK
 										</label>
 									</div>
@@ -229,7 +229,7 @@
 							<div class="form-group" style="">
 								<label class="col-sm-12 control-label" for="KetPrainspeksi">Keterangan/ Catatan</label>
 								<div class="col-sm-12 col-xs-12" style="">
-									<textarea type="text" class="form-control" name="KetPrainspeksi"  style="resize: none;" ><?php echo $manufacture[0]['KetPrainspeksi']; ?></textarea>
+									<textarea type="text" class="form-control" name="KetPrainspeksi"  style="resize: none;" ><?php echo $permohonan[0]['KetPrainspeksi']; ?></textarea>
 								</div>
 							</div>
 						</div>
@@ -251,15 +251,15 @@
 							<div class="form-group" style="">
 								<label class="col-sm-12 control-label" for="TglDisKadis" style="">Tanggal Disposisi </label>
 								<div class="col-sm-4 col-xs-12">
-									<input type="text" class="form-control" name="TglDisKadis" id="Datepicker2" value= "<?php echo sqlDate2html($manufacture[0]['TglDisKadis']); ?>">
+									<input type="text" class="form-control" name="TglDisKadis" id="Datepicker2" value= "<?php echo sqlDate2html($permohonan[0]['TglDisKadis']); ?>">
 									<p class="help-block">Kadis</p>
 								</div>
 								<div class="col-sm-4 col-xs-12" >
-									<input type="text" class="form-control" name="TglDisKabid" id="Datepicker3" value= "<?php echo sqlDate2html($manufacture[0]['TglDisKabid']); ?>">
+									<input type="text" class="form-control" name="TglDisKabid" id="Datepicker3" value= "<?php echo sqlDate2html($permohonan[0]['TglDisKabid']); ?>">
 									<p class="help-block">Kabid</p>
 								</div>
 								<div class="col-sm-4 col-xs-12">
-									<input type="text" class="form-control" name="TglDisKasi" id="Datepicker4" value= "<?php echo sqlDate2html($manufacture[0]['TglDisKasi']); ?>">
+									<input type="text" class="form-control" name="TglDisKasi" id="Datepicker4" value= "<?php echo sqlDate2html($permohonan[0]['TglDisKasi']); ?>">
 									<p class="help-block">Kasie</p>
 								</div>
 							</div>
@@ -269,7 +269,7 @@
 							<div class="form-group " >
 								<label class="col-sm-4 control-label" for="TglPerbalST">Tanggal Perbal Surat Tugas</label>
 								<div class="col-sm-6 col-xs-12" style="margin-top:10px">
-									<input type="text" class="form-control" name="TglPerbalST" id="Datepicker5" value= "<?php echo sqlDate2html($manufacture[0]['TglPerbalST']); ?>">
+									<input type="text" class="form-control" name="TglPerbalST" id="Datepicker5" value= "<?php echo sqlDate2html($permohonan[0]['TglPerbalST']); ?>">
 								</div>
 							</div>
 						</div>
@@ -279,7 +279,7 @@
 								<label class="col-sm-12 control-label" for="Pokja">Pokja</label>
 								<div class="col-sm-6 col-xs-12" >
 									<select class="form-control" name="Pokja" onchange="selectKaInsp(this.options[this.selectedIndex].value)">
-										<option value= "<?php echo $manufacture[0]['Pokja']; ?>"><?php echo $manufacture[0]['Pokja']; ?></option>
+										<option value= "<?php echo $permohonan[0]['Pokja']; ?>"><?php echo $permohonan[0]['Pokja']; ?></option>
 										<option value="pokja 1">Pokja I</option>
 										<option value="pokja 2">Pokja II</option>
 										<option value="pokja 3">Pokja III</option>
@@ -289,7 +289,7 @@
 									<p class="help-block">Pokja</p>
 								</div>
 								<div class="col-sm-6 col-xs-12" >
-									<input type="text" class="form-control" name="KaInsp" id="KaInsp" placeholder="automatic" value= "<?php echo $manufacture[0]['KaInsp']; ?>" readonly>
+									<input type="text" class="form-control" name="KaInsp" id="KaInsp" placeholder="automatic" value= "<?php echo $permohonan[0]['KaInsp']; ?>" readonly>
 									<p class="help-block">Ka. Inspeksi</p>
 								</div>
 							</div>
@@ -300,9 +300,9 @@
 							<label class="col-sm-4 control-label" for="StatusPermhn">Posisi Permohonan</label>
 							<div class="col-sm-6 col-xs-12" style="margin-top:10px">
 								<select class="form-control" name="StatusPermhn">
-									<option value= "<?php echo $manufacture[0]['StatusPermhn']; ?>"> <?php if
-									($manufacture[0]['StatusPermhn']=='1'){echo 'Prainspeksi';}else if
-									($manufacture[0]['StatusPermhn']=='2'){echo 'Disposisi';}else if ($manufacture[0]['StatusPermhn']=='3') {echo 'Inspeksi';} else if ($manufacture[0]['StatusPermhn']=='4') {echo 'Validasi';} else if ($manufacture[0]['StatusPermhn']=='5') {echo 'Finish';} else {echo 'Undefine';} ?>
+									<option value= "<?php echo $permohonan[0]['StatusPermhn']; ?>"> <?php if
+									($permohonan[0]['StatusPermhn']=='1'){echo 'Prainspeksi';}else if
+									($permohonan[0]['StatusPermhn']=='2'){echo 'Disposisi';}else if ($permohonan[0]['StatusPermhn']=='3') {echo 'Inspeksi';} else if ($permohonan[0]['StatusPermhn']=='4') {echo 'Validasi';} else if ($permohonan[0]['StatusPermhn']=='5') {echo 'Finish';} else {echo 'Undefine';} ?>
 									</option>
 									<option value="1">Prainspeksi</option>
 									<option value="2">Disposisi</option>
@@ -317,14 +317,17 @@
 				<!-- /.box-footer -->
 				<div class="box-footer clearfix">
 					<div class="form-actions" style="text-align: center;">
-						<button class="btn btn-success" type="submit" data-toggle="confirmation" data-title="Apakah anda yakin?">Simpan</button>
-						<button class="btn btn-default" type="reset" style="margin-left:50px;">Reset</button>
+						<div class="btn-group pull-right" role="group" aria-label="...">
+							<button class="btn btn-success" type="submit" data-toggle="confirmation" data-title="Apakah anda yakin?">Simpan</button>
+							<button class="btn btn-default" type="reset">Reset</button>
+							<button class="btn btn-default" onclick="history.go(-1);">Batal </button>
+						</div>
 					</div> <br>
 				</div>
 			</div>
 		</div>
 		<!--tidak ditampilkan-->
-		<input type="text" id="" name="NamaGedung_id" value="<?php echo $manufacture[0]['NamaGedung_id']; ?>" style="display: none;">
+		<input type="text" id="" name="NamaGedung_id" value="<?php echo $permohonan[0]['NamaGedung_id']; ?>" style="display: none;">
 
 		<?php echo form_close(); ?>
 	</section>

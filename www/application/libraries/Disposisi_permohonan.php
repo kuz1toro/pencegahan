@@ -55,8 +55,8 @@ class Disposisi_permohonan
 		$data['search_in_field'] = $search_in;
 		$data['order'] = $order;
 		$data['order_type_selected'] = $order_type;
-		$data['manufacturers'] = $this->CI->permohonan_model->get_permohonan_disposisi($search_string, $search_in, $order, $order_type, $per_page, $limit_end, $for);
-		$data['count_products']= $this->CI->permohonan_model->count_permohonan_disposisi($search_string, $search_in, $order, $for);
+		$data['permohonans'] = $this->CI->permohonan_model->get_permohonan_disposisi($search_string, $search_in, $order, $order_type, $per_page, $limit_end, $for);
+		$data['count_permohonans']= $this->CI->permohonan_model->count_permohonan_disposisi($search_string, $search_in, $order, $for);
 		return $data;
 
 	}
