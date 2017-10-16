@@ -1,0 +1,8 @@
+29/3/2017
+- login ok
+- new password hashing
+- belum ditambahkan ion auth
+
+29/3/2017
+- mulai di pakai ion auth
+- ganti bahasa ke indonesia tp nggak bisa jadi rename folder
