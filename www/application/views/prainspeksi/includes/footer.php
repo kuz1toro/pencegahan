@@ -112,6 +112,8 @@ immediately after the control sidebar -->
 <script src="<?php echo base_url(); ?>assets/vendor/jquery-validator/jquery-validate.bootstrap-tooltip.min.js"></script>
 <!-- slide_top thumbnail -->
 <script src="<?php echo base_url(); ?>assets/my_style/js/slide_top.js"></script>
+<!-- jquery confirm -->
+<script src="<?php echo base_url(); ?>assets/vendor/jquery_confirm/jquery-confirm.min.js"></script>
 
 <!-- for tutorial-->
 <?php if ($this->uri->segment(2)=='tutorial'){
@@ -121,6 +123,7 @@ immediately after the control sidebar -->
 }else{
 	echo '<script src="'.base_url().'/assets/my_style/js/my_script.js"></script>';
 }
+//var_dump($this->session->userdata());
 ?>
 </body>
 </html>

@@ -33,6 +33,9 @@ class Auth extends CI_Controller {
 			}elseif ($this->ion_auth->in_group('disposisi'))
 			{
 				redirect('disposisi/home');
+			}elseif ($this->ion_auth->in_group('pokja'))
+			{
+				redirect('pokja/home');
 			}
 
 		}

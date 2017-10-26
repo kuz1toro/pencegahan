@@ -1,22 +1,27 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
-	<section class="content-header">
-		<h1>
-			Add Disposisi
-			<small></small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a><?php echo ucfirst($this->ion_auth->user()->row()->username); ?></a></li>
-			<li><a>Permohonan</a></li>
-			<li class="active">
-				<?php echo ucfirst($this->uri->segment(2));?>
-			</li>
-		</ol>
+	<section class="content-header" style="padding-top: 2px;">
+		<div class="row hidden-xs" style="text-align: right; margin-top: 5px; padding-right: 15px;">
+			<div class="ui steps ordered" style="text-align: left;">
+				<div class="completed step" style="padding: 0px 50px 0px 13px;">
+					<div class="" style="">
+						<div class="title" style="">Pilih permohonan</div>
+						<div class="description" style="">Pilih data permohonan yang akan di disposisi</div>
+					</div>
+				</div>
+				<div class="active step" style="padding: 0px 50px 0px 13px;">
+					<div class="">
+						<div class="title">Lengkapi</div>
+						<div class="description">Lengkapi data disposisi</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<!-- Main content -->
-	<section class="content">
+	<section class="content" style="padding-top: 5px;">
 		<?php
 		//Modal alert
 		pesanModal();
@@ -43,8 +48,8 @@
 
 		<div class="row">
 			<!-- /.colom data gedung -->
-			<div class="col-md-3 hidden-xs">
-				<div class="box box-solid box-default">
+			<div class="col-md-3 hidden-xs my-col">
+				<div class="box box-default">
 					<!-- /.box-header -->
 					<div class="box-header with-border">
 						<h3 class="box-title">Data Gedung</h3>
@@ -101,8 +106,8 @@
 				</div>
 			</div>
 			<!-- /.colom data permohonan -->
-			<div class="col-md-4">
-				<div class="box box-solid box-success">
+			<div class="col-md-4 my-col" >
+				<div class="box box-success">
 					<!-- /.box-header -->
 					<div class="box-header with-border">
 						<h3 class="box-title">Data Permohonan</h3>
@@ -113,7 +118,7 @@
 							<div class="form-group " style="">
 								<label class="col-sm-12 control-label" for="NamaPengelola">Data Pengelola</label>
 								<div class="col-sm-12 col-xs-12" style="">
-									<input type="text" class="form-control" name="NamaPengelola" value= "<?php echo $permhn_n_gedung[0]['NamaPengelola']; ?>" required >
+									<input type="text" class="form-control" name="NamaPengelola" value= "<?php echo $permhn_n_gedung[0]['NamaPengelola']; ?>" required>
 									<p class="help-block">Nama Pengelola <a style="color:red">*</a></p>
 								</div>
 								<div class="col-sm-4 col-xs-12" style="">
@@ -227,9 +232,9 @@
 
 						<div class="col-sm-12 kotak">
 							<div class="form-group" style="">
-								<label class="col-sm-12 control-label" for="KetPrainspeksi">Keterangan/ Catatan</label>
+								<label class="col-sm-12 control-label" for="KetPrainspeksi">Keterangan/ Catatan Prainspeksi</label>
 								<div class="col-sm-12 col-xs-12" style="">
-									<textarea type="text" class="form-control" name="KetPrainspeksi"  style="resize: none;" ><?php echo $permhn_n_gedung[0]['KetPrainspeksi']; ?></textarea>
+									<textarea type="text" class="form-control" name="KetPrainspeksi"  style="resize: none;" readonly><?php echo $permhn_n_gedung[0]['KetPrainspeksi']; ?></textarea>
 								</div>
 							</div>
 						</div>
@@ -239,8 +244,8 @@
 			</div>
 
 			<!-- /.colom data disposisi -->
-			<div class="col-md-5">
-				<div class="box box-solid box-success">
+			<div class="col-md-5 my-col">
+				<div class="box box-success">
 					<!-- /.box-header -->
 					<div class="box-header with-border">
 						<h3 class="box-title">Data Disposisi</h3>
@@ -276,42 +281,69 @@
 
 						<div class="col-sm-12 kotak">
 							<div class="form-group " >
-								<label class="col-sm-12 control-label" for="Pokja">Pokja</label>
-								<div class="col-sm-6 col-xs-12" >
-									<select class="form-control" name="Pokja" onchange="selectKaInsp(this.options[this.selectedIndex].value)" required >
-										<option value= "<?php echo $permhn_n_gedung[0]['Pokja']; ?>"><?php echo $permhn_n_gedung[0]['Pokja']; ?></option>
-										<option value="pokja 1">Pokja I</option>
-										<option value="pokja 2">Pokja II</option>
-										<option value="pokja 3">Pokja III</option>
-										<option value="pokja 4">Pokja IV</option>
-										<option value="pokja 5">Pokja V</option>
-									</select>
-									<p class="help-block">Pokja<a style="color:red">*</a></p>
+								<label class="col-sm-12 control-label" style="text-align: left; margin-bottom: 10px;" for="Pokja">Disposisi ke</label>
+								<div class="checkbox">
+									<ul>
+										<input type="radio" id="pil_prains" name="demo-radio" class="minimal">
+										<label for="pil_prains">Prainspeksi</label>
+									</ul>
+									<ul>
+										<input type="radio" id="pil_pokja" name="demo-radio" class="minimal" checked>
+										<label for="pil_pokja">Pokja</label>
+									</ul>
 								</div>
-								<div class="col-sm-6 col-xs-12" >
-									<input type="text" class="form-control" name="KaInsp" id="KaInsp" placeholder="automatic" value= "<?php echo $permhn_n_gedung[0]['KaInsp']; ?>" readonly>
-									<p class="help-block">Ka. Inspeksi</p>
+								<div id="Pokja_box">
+									<div class="col-sm-6 col-xs-12">
+										<select class="form-control" name="Pokja" id="Pokja" onchange="selectKaInsp(this.options[this.selectedIndex].value)" required >
+											<option value= "<?php echo $permhn_n_gedung[0]['Pokja']; ?>"><?php echo $permhn_n_gedung[0]['Pokja']; ?></option>
+											<option value="pokja 1">Pokja I</option>
+											<option value="pokja 2">Pokja II</option>
+											<option value="pokja 3">Pokja III</option>
+											<option value="pokja 4">Pokja IV</option>
+											<option value="pokja 5">Pokja V</option>
+										</select>
+										<p class="help-block">Pokja<a style="color:red">*</a></p>
+									</div>
+									<div class="col-sm-6 col-xs-12" >
+										<input type="text" class="form-control" name="KaInsp" id="KaInsp" placeholder="automatic" value= "<?php echo $permhn_n_gedung[0]['KaInsp']; ?>" readonly>
+										<p class="help-block">Ka. Inspeksi</p>
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="form-group" style="">
+										<label class="col-sm-12 control-label" for="KetDisposisi">Keterangan/ Catatan Kasie</label>
+										<div class="col-sm-12 col-xs-12" style="">
+											<textarea type="text" class="form-control" name="KetDisposisi"  style="resize: none;" placeholder="Catatan atau instruksi untuk prainspeksi dan pokja"><?php echo $permhn_n_gedung[0]['KetDisposisi']; ?></textarea>
+										</div>
+									</div>
 								</div>
 							</div>
-					</div>
-
-					
-				<!-- /.box-footer -->
-				<div class="box-footer clearfix">
-					<div class="form-actions" style="text-align: center;">
-						<div class="btn-group pull-right" role="group" aria-label="...">
-							<button class="btn btn-success" type="submit" data-toggle="confirmation" data-title="Apakah anda yakin?">Submit</button>
-							<button class="btn btn-default" type="reset">Reset</button>
-							<button class="btn btn-default" onclick="history.go(-1);">Batal </button>
 						</div>
-					</div> <br>
+					</div>
+					
+					<!-- /.box-footer -->
+					<div class="box-footer clearfix">
+						<div class="form-actions" style="text-align: center;">
+							<div class="btn-group pull-right" role="group" aria-label="...">
+								<button class="btn btn-success tbl-simpan" type="button">Simpan</button>
+								<button class="btn btn-default tbl-reset" type="button">Reset</button>
+								<?php if (strlen($_SESSION['search_string_selected'])==0){
+									$next_page = $_SESSION['hal_skr'];
+								} else {
+									$next_page = ''.$_SESSION['hal_skr'].'?search_string='.$_SESSION['search_string_selected'].'&search_in='.$_SESSION['search_in_field'].'&order='.$_SESSION['order'].'&order_type='.$_SESSION['order_type'].'';
+								} ?>
+								<button class="btn btn-default tbl-back" val="<?php echo $next_page; ?>" type="button">Kembali</button>
+								<button class="btn btn-default tbl-batal" val="<?php echo ''.base_url().'disposisi/home'; ?>" type="button">Batal</button>
+							</div>
+						</div> <br>
+					</div>
 				</div>
 			</div>
-		</div>
-		<!--tidak ditampilkan-->
-		<input type="text" id="" name="StatusPermhn" value="3" style="display: none;">
-		<input type="text" id="" name="No_id" value="<?php echo $permhn_n_gedung[0]['permhn_id']; ?>" style="display: none;" >
+			<!--tidak ditampilkan-->
+			<input type="text" id="StatusPermhn" name="StatusPermhn" style="display: none;">
+			<input type="text" id="" name="No_id" value="<?php echo $permhn_n_gedung[0]['permhn_id']; ?>" style="display: none;" >
 
-		<?php echo form_close(); ?>
+			<?php echo form_close(); ?>
+		</div>
 	</section>
 </div>

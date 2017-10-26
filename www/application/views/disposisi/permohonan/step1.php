@@ -1,24 +1,103 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
-	<section class="content-header">
-		<h1>
-			Add Disposisi
-			<small></small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a><?php echo ucfirst($this->ion_auth->user()->row()->username); ?></a></li>
-			<li><a>Permohonan</a></li>
-			<li class="active">
-				<?php echo ucfirst($this->uri->segment(2));?>
-			</li>
-		</ol>
+	<section class="content-header" style="padding-top: 2px;">
+		<div class="row hidden-xs" style="text-align: right; margin-top: 5px; padding-right: 15px;">
+			<div class="ui steps ordered" style="text-align: left;">
+				<div class="active step" style="padding: 0px 50px 0px 13px;">
+					<div class="" style="">
+						<div class="title" style="">Pilih permohonan</div>
+						<div class="description" style="">Pilih data permohonan yang akan di disposisi</div>
+					</div>
+				</div>
+				<div class="disabled step" style="padding: 0px 50px 0px 13px;">
+					<div class="">
+						<div class="title">Lengkapi</div>
+						<div class="description">Lengkapi data disposisi</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 
+	<?php
+		$attributes = array('method' => 'get', 'class' => 'form-inline reset-margin', 'id' => 'myform');
+		echo form_open('disposisi/Add_disposisi_step1', $attributes);
+	?>
+
 	<!-- Main content -->
-	<section class="content">
+	<section class="content" style="padding-top: 5px;">
 		<div class="box">
 			<div class="box-body">
+				<!-- /.box-header -->
+				<div class="box-header with-border">
+					<div class="col-sm-12 col-xs-12" id="" style="" align="right" >
+						<div class="input-group" >
+							<span class="input-group-btn hidden-xs">
+								<select class="btn btn-default" name="search_in" value="<?php echo $search_in_field; ?>" data-toggle="tooltip" title="Cari di:">
+									<option value="NamaGedung" <?php if ($search_in_field=='NamaGedung') {
+										echo 'selected';
+									}?> >Nama Gedung</option>
+									<option value="NamaPengelola" <?php if ($search_in_field=='NamaPengelola') {
+										echo 'selected';
+									}?> >Nama Pengelola</option>
+									<option value="TipePermhn" <?php if ($search_in_field=='TipePermhn') {
+										echo 'selected';
+									}?> >Tipe Permohonan</option>
+									<option value="NoPermhn" <?php if ($search_in_field=='NoPermhn') {
+										echo 'selected';
+									}?> >No Permohonan</option>
+									<option value="TglPermhn" <?php if ($search_in_field=='TglPermhn') {
+										echo 'selected';
+									}?> >Tgl Permohonan</option>
+								</select>
+								<select class="btn btn-default" name="order" value="<?php echo $order; ?>" data-toggle="tooltip" title="diurutkan berdasarkan:">
+									<option value="id" <?php if ($order=='id') {
+										echo 'selected';
+									}?> >No</option>
+									<option value="NamaGedung" <?php if ($order=='NamaGedung') {
+										echo 'selected';
+									}?> >Nama Gedung</option>
+									<option value="NamaPengelola" <?php if ($order=='NamaPengelola') {
+										echo 'selected';
+									}?> >Nama Pengelola</option>
+									<option value="NoPermhn" <?php if ($order=='NoPermhn') {
+										echo 'selected';
+									}?> >No Permohonan</option>
+									<option value="TipePermhn" <?php if ($order=='TipePermhn') {
+										echo 'selected';
+									}?> >Tipe Permohonan</option>
+									<option value="TglPermhn" <?php if ($order=='TglPermhn') {
+										echo 'selected';
+									}?> >Tgl Permohonan</option>
+								</select>
+								<select class="btn btn-default" name="order_type" value="<?php echo $order_type_selected; ?>" data-toggle="tooltip" title="pengurutan:">
+									<option value="Asc" <?php if ($order_type_selected=='Asc') {
+										echo 'selected';
+									}?> > terkecil->terbesar </option>
+									<option value="Desc" <?php if ($order_type_selected=='Desc') {
+										echo 'selected';
+									}?> > terbesar->terkecil </option>
+								</select>
+							</span>
+							<input type="text" class="form-control" name="search_string" id="" value="<?php echo $search_string_selected; ?>" placeholder="kata kunci" >
+							<span class="input-group-btn" id="">
+								<button class="btn btn-primary" type="submit" data-toggle="tooltip" title="cari"><span class="glyphicon glyphicon-search"></span></button>
+								<button class="btn btn-primary" onclick="location.href='<?php echo ''.base_url().'disposisi/Add_disposisi_step1'; ?>'" type="button" data-toggle="tooltip" title="reset pencarian"><span class="glyphicon glyphicon-refresh"></span></button>
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- untuk back page -->
+				<?php 
+					$page_data['hal_skr'] = base_url().ltrim($_SERVER['PATH_INFO'], '/');
+					$this->session->set_userdata($page_data);
+					//var_dump($this->session->userdata());
+				?>
+
+				<?php echo form_close(); ?>
+
 				<!-- Modal alert-->
 				<?php pesanModal();
 
@@ -46,82 +125,6 @@
 
 				<div class="row">
 					<div class="span12 columns">
-						<div class="well col-sm-12 col-xs-12">
-
-							<?php
-							$attributes = array('class' => 'form-inline reset-margin', 'id' => 'myform');
-							echo form_open('disposisi/Add_disposisi_step1', $attributes);
-
-							echo '<div class="col-sm-3 col-xs-12" id="" style="" align="right" >
-							<div class="input-group" >
-							<input type="text" class="form-control" name="search_string" id="" value="'.$search_string_selected.'" placeholder="kata kunci" >
-							<span class="input-group-btn" id=""><button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
-							</div>
-							</div>';
-
-							echo '<div class="col-sm-3 col-xs-12" id="" style="" align="center">
-								<div class="input-group">
-									<span class="input-group-addon" id="basic-addon1">Cari di:</span>
-									<select class="form-control" name="search_in" value="'.$search_in_field.'">'; ?>
-										<option value="NamaGedung" <?php if ($search_in_field=='NamaGedung') {
-											echo 'selected';
-										}?> >Nama Gedung</option>
-										<option value="NamaPengelola" <?php if ($search_in_field=='NamaPengelola') {
-											echo 'selected';
-										}?> >Nama Pengelola</option>
-										<option value="TipePermhn" <?php if ($search_in_field=='TipePermhn') {
-											echo 'selected';
-										}?> >Tipe Permohonan</option>
-										<option value="NoPermhn" <?php if ($search_in_field=='NoPermhn') {
-											echo 'selected';
-										}?> >No Permohonan</option>
-										<option value="TglPermhn" <?php if ($search_in_field=='TglPermhn') {
-											echo 'selected';
-										}?> >Tgl Permohonan</option>
-									</select>
-								</div>
-							</div>
-
-							<?php
-							echo '<div class="col-sm-6 hidden-xs" id="" style="">
-							<div class="form-inline">
-								<div class="input-group">
-									<span class="input-group-addon" id="basic-addon1">Pengurutan:</span>
-									<select class="form-control" name="order" value="'.$order.'">'; ?>
-										<option value="id" <?php if ($order=='id') {
-											echo 'selected';
-										}?> >No</option>
-										<option value="NamaGedung" <?php if ($order=='NamaGedung') {
-											echo 'selected';
-										}?> >Nama Gedung</option>
-										<option value="NamaPengelola" <?php if ($order=='NamaPengelola') {
-											echo 'selected';
-										}?> >Nama Pengelola</option>
-										<option value="NoPermhn" <?php if ($order=='NoPermhn') {
-											echo 'selected';
-										}?> >No Permohonan</option>
-										<option value="TglPermhn" <?php if ($order=='TglPermhn') {
-											echo 'selected';
-										}?> >Tgl Permohonan</option>
-									</select>
-								</div>
-
-								<select class="form-control" name="order_type" value="<?php echo $order_type_selected; ?>">
-									<option value="Asc" <?php if ($order_type_selected=='Asc') {
-										echo 'selected';
-									}?> > terkecil->terbesar </option>
-									<option value="Desc" <?php if ($order_type_selected=='Desc') {
-										echo 'selected';
-									}?> > terbesar->terkecil </option>
-								</select>
-							</div>
-							</div>
-							<?php
-							echo form_close();
-							?>
-
-						</div>
-
 						<table class="table table-bordered table-hover">
 							<thead>
 								<tr>
@@ -140,7 +143,6 @@
 							<tbody>
 								<?php
 								$rows=count($permohonans);
-								$count = 1;
 								foreach($permohonans as $row)
 								{
 									if($row['StatusPermhn']==1){
@@ -168,9 +170,9 @@
 										$progress='0%';
 										$warna='black';
 									}
-									echo '<tr'; if($this->session->flashdata('flash_message')=='added' && $count==$rows){echo ' class="kedipGrey" >'; $this->session->set_flashdata('flash_message', '');}else{echo '>';}
+									echo '<tr>';
 										echo '<td class="">
-										<a href="'.site_url("disposisi/Add_disposisi_step2").'/'.$row['id'].'" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Pilih Disposisi"><span class="glyphicon glyphicon-edit"></span></a>
+										<a href="'.site_url("disposisi/Add_disposisi_step2").'/'.$row['id'].'" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Pilih Disposisi"><span class="glyphicon glyphicon-plus-sign"></span></a>
 										</td>';
 										echo '<td>'.$row['id'].'</td>';
 										echo '<td>'.$row['NamaPengelola'].'</td>';
@@ -181,8 +183,7 @@
 										echo '<td class="hidden-xs">'.sqlDate2html($row['TglSuratDiterima']).'</td>';
 										echo '<td>'.$posisi.'</td>';
 										echo '<td><span class="badge bg-'.$warna.'">'.$progress.'</span></td>';
-										echo '</tr>';
-									$count++ ;
+									echo '</tr>';
 								}
 								?>
 							</tbody>

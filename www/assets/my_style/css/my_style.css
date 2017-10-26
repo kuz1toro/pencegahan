@@ -66,3 +66,32 @@ div.grey{
 	margin-bottom: 15px;
 	background: rgba(127, 127, 127, 0.1);
 }
+
+p.help-block{
+	margin-top: 0px;
+	margin-left: 15px;
+}
+
+input.form-control, select.form-control, textarea.form-control{
+	border-radius: 15px;
+}
+
+div.content-wrapper{
+	background-color:rgb(120, 120, 120);
+	
+}
+
+div.my-col{
+	padding-right: 1px;
+	padding-left: 1px;
+}
+
+section.my-content{
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+label.control-label{
+	padding-bottom: 15px;
+}

@@ -109,7 +109,7 @@ class Permohonan_model extends CI_Model {
 		$this->db->select('tabel_permohonan.NoPermhn');
 		$this->db->select('tabel_permohonan.TglPermhn');
 		$this->db->select('tabel_permohonan.TglSuratDiterima');
-    $this->db->select('tabel_permohonan.StatusPermhn');
+    	$this->db->select('tabel_permohonan.StatusPermhn');
 		$this->db->from('tabel_permohonan');
 
 		$this->db->join('tabel_gedung', 'tabel_permohonan.NamaGedung_id = tabel_gedung.id', 'left');
@@ -181,6 +181,75 @@ class Permohonan_model extends CI_Model {
 		return $query->num_rows();
 	}
 
+	public function get_permohonan_prainspeksi($search_string=null, $search_in='NamaPengelola', $order=null, $order_type='Asc', $limit_start=null, $limit_end=null)
+    {
+	    //echo 'get permohonan';
+		$this->db->select('tabel_permohonan.id');
+		$this->db->select('tabel_permohonan.NamaPengelola');
+		$this->db->select('tabel_permohonan.NoTelpPengelola');
+		$this->db->select('tabel_gedung.NamaGedung as Nama_Gedung_Id');
+		$this->db->select('tabel_permohonan.TipePermhn');
+		$this->db->select('tabel_permohonan.NoPermhn');
+		$this->db->select('tabel_permohonan.TglPermhn');
+		$this->db->select('tabel_permohonan.TglSuratDiterima');
+		$this->db->select('tabel_permohonan.StatusPermhn');
+		$this->db->select('tabel_permohonan.KaInsp');
+		$this->db->select('tabel_permohonan.EvalKeslKebakrn');
+		$this->db->from('tabel_permohonan');
+
+		$this->db->join('tabel_gedung', 'tabel_permohonan.NamaGedung_id = tabel_gedung.id', 'left');
+
+		if($search_string){
+			$this->db->like($search_in, $search_string);
+		}
+
+		$this->db->group_by('id');
+
+		if($order){
+			$this->db->order_by($order, $order_type);
+		}else{
+		    $this->db->order_by('id', $order_type);
+		}
+
+        if($limit_start && $limit_end){
+          $this->db->limit($limit_start, $limit_end);
+        }
+
+        if($limit_start != null){
+          $this->db->limit($limit_start, $limit_end);
+        }
+
+		$this->db->where('StatusPermhn', 2);
+		
+		$query = $this->db->get();
+
+		return $query->result_array();
+    }
+
+	function count_permohonan_prainspeksi($search_string=null, $search_in='NamaPengelola', $order=null)
+    {
+		//echo 'count permohonan';
+		$this->db->select('tabel_permohonan.id');
+		$this->db->select('tabel_permohonan.NamaPengelola');
+		$this->db->select('tabel_permohonan.NoTelpPengelola');
+		$this->db->select('tabel_gedung.NamaGedung');
+		$this->db->select('tabel_permohonan.TipePermhn');
+		$this->db->select('tabel_permohonan.NoPermhn');
+		$this->db->select('tabel_permohonan.TglPermhn');
+		$this->db->select('tabel_permohonan.TglSuratDiterima');
+		$this->db->from('tabel_permohonan');
+
+		$this->db->join('tabel_gedung', 'tabel_permohonan.NamaGedung_id = tabel_gedung.id', 'left');
+		if($search_string){
+			$this->db->like($search_in, $search_string);
+		}
+
+		$this->db->group_by('id');
+        $this->db->where('StatusPermhn', 2);
+		$query = $this->db->get();
+		return $query->num_rows();
+	}
+
     /**
     * Store the new item into the database
     * @param array $data - associative array with data to store
@@ -221,7 +290,7 @@ class Permohonan_model extends CI_Model {
     }
 	}
 
-	 public function get_permohonan_disposisi($search_string=null, $search_in='NamaPengelola', $order=null, $order_type='Asc', $limit_start=null, $limit_end=null, $for='disposisi')
+	public function get_permohonan_disposisi($search_string=null, $search_in='NamaPengelola', $order=null, $order_type='Asc', $limit_start=null, $limit_end=null, $for='disposisi')
     {
 	    //echo 'get permohonan';
 		$this->db->select('tabel_permohonan.id');

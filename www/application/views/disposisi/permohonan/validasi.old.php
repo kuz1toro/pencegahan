@@ -2,31 +2,33 @@
 
       <ul class="breadcrumb">
         <li>
-          <a >
+          <a href="<?php echo site_url("disposisi/home"); ?>">
             Disposisi
-          </a>
+          </a> 
         </li>
         <li class="active">
-         Monitoring Permohonan
+          <?php echo ucfirst($this->uri->segment(2));?>
         </li>
       </ul>
 
-
+      
       <div class="row">
         <div class="span12 columns">
           <div class="well col-sm-12 col-xs-12">
-
+           
             <?php
-            $attributes = array('method' => 'get', 'class' => 'form-inline reset-margin', 'id' => 'myform');
-            echo form_open('disposisi/permohonan', $attributes);
-
+           
+            $attributes = array('class' => 'form-inline reset-margin', 'id' => 'myform');
+           
+            echo form_open('disposisi/validasi', $attributes);
+     
              echo '<div class="col-sm-3 col-xs-12" id="" style="" align="right" >
 				    <div class="input-group" >
 							<input type="text" class="form-control" name="search_string" id="" value="'.set_value($search_string_selected).'" placeholder="kata kunci" >
 							<span class="input-group-btn" id=""><button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
 					</div>
-				  </div>';
-
+				  </div>';	
+			  
 			  echo '<div class="col-sm-3 col-xs-12" id="" style="" align="center">
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1">Cari di:</span>
@@ -66,7 +68,6 @@
           </div>
 
           <table class="table table-striped table-bordered table-condensed">
-			<caption>Tabel Daftar Permohonan</caption>
             <thead>
               <tr>
                 <th class="header">No</th>
@@ -76,27 +77,17 @@
 				<th class="yellow header headerSortDown hidden-xs">No Permohonan</th>
 				<th class="yellow header headerSortDown hidden-xs">Tgl Permohonan</th>
 				<th class="yellow header headerSortDown hidden-xs">Tgl Surat Diterima</th>
-				<th class="yellow header headerSortDown">Posisi</th>
-				<th class="yellow header headerSortDown">Action</th>
+				<th class="yellow header headerSortDown">Kepala Inspektur</th>
+				<th class="yellow header headerSortDown hidden-xs">Hasil Evaluasi</th>
+				<th class="yellow header headerSortDown">Validasi</th>
               </tr>
             </thead>
             <tbody>
               <?php
-
+			  
               foreach($manufacturers as $row)
               {
-                if($row['StatusPermhn']==1){
-                  $posisi='Pra Inspeksi';
-                }else if($row['StatusPermhn']==2){
-                  $posisi='Disposisi';
-                }else if($row['StatusPermhn']==3){
-                  $posisi='Inspeksi';
-                }else if($row['StatusPermhn']==4){
-                  $posisi='Validasi';
-                }else if($row['StatusPermhn']==5){
-                  $posisi='Pasca Inspeksi';
-                }else if($row['StatusPermhn']==6){
-                  $posisi='Finish';}
+               
 				echo '<tr>';
                 echo '<td>'.$row['id'].'</td>';
                 echo '<td>'.$row['NamaPengelola'].'</td>';
@@ -105,14 +96,16 @@
 				echo '<td class="hidden-xs">'.$row['NoPermhn'].'</td>';
 				echo '<td class="hidden-xs">'.sqlDate2html($row['TglPermhn']).'</td>';
 				echo '<td class="hidden-xs">'.sqlDate2html($row['TglSuratDiterima']).'</td>';
-				echo '<td>'.$posisi.'</td>';
+				echo '<td>'.$row['KaInsp'].'</td>';
+				echo '<td class="hidden-xs">'.$row['EvalKeslKebakrn'].'</td>';
                 echo '<td class="crud-actions">
-                  <a href="'.site_url("disposisi").'/permohonan/update/'.$row['id'].'" class="btn btn-info" data-toggle="tooltip" title="Lihat & Edit"><span class="glyphicon glyphicon-edit"></span></a>
-                  <a href="'.site_url("disposisi").'/permohonan/delete/'.$row['id'].'" onclick="return confirm(\'Yakin HAPUS data ini?\');" class="btn btn-danger" data-toggle="tooltip" title="Hapus"><span class="glyphicon glyphicon-trash"></span></a>
+                  <a href="'.site_url("disposisi").'/permohonan/validasi/'.$row['id'].'" class="btn btn-info" data-toggle="tooltip" title="Lihat & Validasi"><span class="glyphicon glyphicon-edit"></span></a> 
+                  <a href="'.site_url("disposisi").'/validasi_yes/'.$row['id'].'" onclick="return confirm(\'Yakin Validasi data ini?\');" class="btn btn-success" data-toggle="tooltip" title="Setuju Validasi"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+				  <a href="'.site_url("disposisi").'/validasi_no/'.$row['id'].'" onclick="return confirm(\'Yakin Tidak Validasi data ini?\');" class="btn btn-danger" data-toggle="tooltip" title="Tidak Setuju Validasi"><span class="glyphicon glyphicon-thumbs-down"></span></a>
                 </td>';
                 echo '</tr>';
               }
-              ?>
+              ?>      
             </tbody>
           </table>
 

@@ -197,7 +197,16 @@ class Prainspeksi_gedung extends CI_Controller {
 				}else{
 					$this->session->set_flashdata('flash_message', 'not_updated');
 				}
-				redirect('Prainspeksi_gedung/update/'.$id.'');
+
+				// next page setup
+				if (strlen($_SESSION['search_string_selected'])==0){
+					$next_page = $_SESSION['hal_skr'];
+				} else {
+					$next_page = ''.$_SESSION['hal_skr'].'?search_string='.$_SESSION['search_string_selected'].'&search_in='.$_SESSION['search_in_field'].'&order='.$_SESSION['order'].'&order_type='.$_SESSION['order_type'].'';
+				}
+
+				//redirect('Prainspeksi_gedung/update/'.$id.'');
+				redirect($next_page);
 
 			}//validation run
 
@@ -223,7 +232,14 @@ class Prainspeksi_gedung extends CI_Controller {
 		//product id
 		$id = $this->uri->segment(3);
 		$this->gedung_model->delete_gedung($id);
-		redirect('prainspeksi/gedung');
+		// page setup
+		if (strlen($_SESSION['search_string_selected'])==0){
+			$next_page = $_SESSION['hal_skr'];
+		} else {
+			$next_page = ''.$_SESSION['hal_skr'].'?search_string='.$_SESSION['search_string_selected'].'&search_in='.$_SESSION['search_in_field'].'&order='.$_SESSION['order'].'&order_type='.$_SESSION['order_type'].'';
+		}
+		redirect($next_page);
+		//redirect('prainspeksi/gedung');
 	}//delete
 
 	public function tutorial()

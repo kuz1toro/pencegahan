@@ -28,6 +28,24 @@ $(document).ready(function() {
           "scrollX": true
         } );
 
+		//iCheck for checkbox and radio inputs
+		$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+			checkboxClass: 'icheckbox_flat-green',
+			radioClass: 'iradio_flat-green'
+		});
+		$('#pil_prains').on('ifChecked', function(event){
+			$("#Pokja_box").fadeOut();
+			$("#StatusPermhn").val("1");
+			$("#Pokja").val("pokja 1");
+		});
+		$('#pil_pokja').on('ifChecked', function(event){
+			//$( "#Pokja" ).prop( "disabled", false );
+			$("#Pokja").val("");
+			$("#Pokja_box").fadeIn("slow");
+			$("#StatusPermhn").val("3");
+			$("#KaInsp").val("");
+		});
+
 });
 
 // bootstrap-datepicker
@@ -119,16 +137,14 @@ function showKodepos(kel_id){
 	}
 }
 
-//iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_minimal-blue'
-    });
+
 
 //bootstrap-confirmation
 		$('[data-toggle=confirmation]').confirmation({
 		  rootSelector: '[data-toggle=confirmation]',
 		  // other options
+		  singleton: 'true',
+		  popout: 'true',
 		});
 
 // pilih kainspeksi
@@ -147,3 +163,154 @@ function selectKaInsp(val){
     $("#KaInsp").val("?");
   }
 }
+
+//jquery confirmation global
+//simpan
+$('.tbl-simpan').on('click', function () {
+	$.confirm({
+		icon: 'fa fa-check-circle',
+		title: 'Simpan',
+		content: 'apakah anda yakin?',
+		theme: 'modern',
+		closeIcon: true,
+		animation: 'left',
+		type: 'green',
+		buttons: {
+			Ya: {
+				action: function () {
+					$( "#myForm" ).submit();
+				},
+				btnClass: 'btn-green'
+			},
+			Tidak: {
+				action: function () {
+				}
+			},
+		},
+	});
+});
+//reset
+$('.tbl-reset').on('click', function () {
+	$.confirm({
+		icon: 'fa fa-info-circle',
+		title: 'Reset',
+		content: 'Data akan dikembalikan ke semula, apakah anda yakin?',
+		theme: 'modern',
+		closeIcon: true,
+		animation: 'left',
+		type: 'orange',
+		buttons: {
+			Ya: {
+				action: function () {
+					$( "#myForm" )[0].reset();
+				},
+				btnClass: 'btn-orange'
+			},
+			Tidak: {
+				action: function () {
+				}
+			},
+		},
+	});
+});
+//kembali
+$('.tbl-back').on('click', function () {
+	var halaman = $(this).attr('val');
+	$.confirm({
+		icon: 'fa fa-info-circle',
+		title: 'Kembali ke halaman sebelumnya',
+		content: 'Data tidak akan disimpan, apakah anda yakin?',
+		theme: 'modern',
+		closeIcon: true,
+		animation: 'left',
+		type: 'orange',
+		buttons: {
+			Ya: {
+				action: function () {
+					window.location = halaman;
+				},
+				btnClass: 'btn-orange'
+			},
+			Tidak: {
+				action: function () {
+				}
+			},
+		},
+	});
+});
+//batal
+$('.tbl-batal').on('click', function () {
+	var halaman = $(this).attr('val');
+	$.confirm({
+		icon: 'fa fa-info-circle',
+		title: 'Batalkan operasi',
+		content: 'Data tidak akan disimpan, apakah anda yakin?',
+		theme: 'modern',
+		closeIcon: true,
+		animation: 'left',
+		type: 'orange',
+		buttons: {
+			Ya: {
+				action: function () {
+					window.location = halaman;
+				},
+				btnClass: 'btn-orange'
+			},
+			Tidak: {
+				action: function () {
+				}
+			},
+		},
+	});
+});
+//delete
+$('.t-del').on('click', function () {
+	var hal_url = $(this).attr('val');
+	$.confirm({
+		icon: 'fa fa-warning',
+		title: 'Hapus',
+		content: 'apakah anda yakin?',
+		theme: 'modern',
+		closeIcon: true,
+		animation: 'left',
+		type: 'red',
+		buttons: {
+			Ya: {
+				action: function () {
+					window.location = hal_url;
+				},
+				btnClass: 'btn-red'
+			},
+			Tidak: {
+				action: function () {
+				},
+				btnClass: 'btn-primary'
+			},
+		},
+	});
+});
+//validasi
+$('.t-val').on('click', function () {
+	var hal_url = $(this).attr('val');
+	$.confirm({
+		icon: 'fa fa-info-circle',
+		title: 'Validasi',
+		content: 'Setuju Validasi data ini?',
+		theme: 'modern',
+		closeIcon: true,
+		animation: 'left',
+		type: 'orange',
+		buttons: {
+			Ya: {
+				action: function () {
+					window.location = hal_url;
+				},
+				btnClass: 'btn-orange'
+			},
+			Tidak: {
+				action: function () {
+				}
+			},
+		},
+	});
+});

@@ -88,11 +88,13 @@ class PraInspeksi_permohonan extends CI_Controller {
 
 		//pagination settings
 		$config['per_page'] = $this->per_page;
+		$config['base_url'] = base_url().'prainspeksi_permohonan/Add_step1';
+		/**
 		if ($this->uri->segment(2)=='add_lhp_step1'){
 			$config['base_url'] = base_url().'prainspeksi_permohonan/add_lhp_step1';
 		}else{
 			$config['base_url'] = base_url().'prainspeksi_permohonan/add_rekomtek_step1';
-		}
+		} */
 		$page = $this->uri->segment(3);
 
 		//use gedung lib untuk paginasi
@@ -265,7 +267,14 @@ public function update()
 				}
 			}
 
-			redirect('prainspeksi_permohonan/update/'.$id.'');
+			if (strlen($_SESSION['search_string_selected'])==0){
+					$next_page = $_SESSION['hal_skr'];
+				} else {
+					$next_page = ''.$_SESSION['hal_skr'].'?search_string='.$_SESSION['search_string_selected'].'&search_in='.$_SESSION['search_in_field'].'&order='.$_SESSION['order'].'&order_type='.$_SESSION['order_type'].'';
+				}
+
+			//redirect('prainspeksi_permohonan/update/'.$id.'');
+			redirect($next_page);
 
 		}//validation run
 
@@ -275,7 +284,7 @@ public function update()
 	//the code below wel reload the current data
 
 	//product data
-		$data['permohonans'] = $this->permohonan_model->get_permohonan_by_id($id);
+	$data['permohonans'] = $this->permohonan_model->get_permohonan_by_id($id);
 	$data['gedungs'] = $this->gedung_model->get_gedung_by_id($data['permohonans'][0]['NamaGedung_id']);
 	//load the view
 	$data['main_content'] = 'prainspeksi/permohonan/edit';
@@ -293,7 +302,14 @@ public function delete()
 	$id = $this->uri->segment(3);
 	if ($this->permohonan_model->delete_permohonan($id)){
 		$this->session->set_flashdata('flash_message', 'deleted');
-		redirect('prainspeksi_permohonan/index');
+		// page setup
+		if (strlen($_SESSION['search_string_selected'])==0){
+			$next_page = $_SESSION['hal_skr'];
+		} else {
+			$next_page = ''.$_SESSION['hal_skr'].'?search_string='.$_SESSION['search_string_selected'].'&search_in='.$_SESSION['search_in_field'].'&order='.$_SESSION['order'].'&order_type='.$_SESSION['order_type'].'';
+		}
+		redirect($next_page);
+		//redirect('prainspeksi_permohonan/index');
 	}
 }//delete
 

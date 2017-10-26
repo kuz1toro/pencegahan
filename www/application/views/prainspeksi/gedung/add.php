@@ -1,11 +1,12 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
+	<?php /**
 	<section class="content-header">
-		<!--<h1>
+		<h1>
 		Detail Gedung
 		<small></small>
-	</h1>-->
+	</h1>
 	<ol class="breadcrumb">
 		<li><a><?php echo ucfirst($this->ion_auth->user()->row()->username); ?></a></li>
 		<li><a>Gedung</a></li>
@@ -13,39 +14,25 @@
 			<?php echo ucfirst($this->uri->segment(2));?>
 		</li>
 	</ol>
-</section>
+</section> */ ?>
 
 <!-- Main content -->
 <section class="content">
 
-	<!-- Modal alert-->
-	<?php pesanModal();
-
-	//flash messages
-	if(isset($flash_message)){
-		if($flash_message == TRUE)
-		{ echo'<script>
-			window.onload = function(){
-				$("#sukses").modal();
-			};
-			</script>';
-		}
-	}
-	else if(validation_errors())
-	{ echo'<script>
-		window.onload = function(){
-			$("#gagal").modal();
-		};
-		</script>';
-	}
+	<?php 
+	//back page
+	$add_session_data = array('search_string_selected' => NULL,
+								'search_in_field' => 'NamaGedung',
+								'order' => 'id',
+								'order_type' => 'Asc' );
+	$this->session->set_userdata($add_session_data);
 	?>
 
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<div class="box box-solid box-success" >
+			<div class="box box-solid box-primary" >
 				<!-- /.box-header -->
 				<div class="box-header with-border">
-					<h1 class="box-title">Tambah Gedung</h1>
 				</div>
 				<!-- /.box-main -->
 				<div class="box-body box1" >
@@ -237,9 +224,9 @@
 				<div class="box-footer clearfix">
 					<div class="form-actions" style="text-align: center;">
 						<div class="btn-group pull-right" role="group" aria-label="...">
-							<button class="btn btn-success" type="submit">Simpan</button>
-							<button class="btn btn-default" type="reset">Reset</button>
-							<button class="btn btn-default" onclick="history.go(-1);">Batal </button>
+							<button class="btn btn-success tbl-simpan" type="button">Simpan</button>
+							<button class="btn btn-default tbl-reset" type="button">Reset</button>
+							<button class="btn btn-default tbl-batal" val="<?php echo ''.base_url().'prainspeksi_gedung/home'; ?>" type="button">Batal</button>
 						</div>
 					</div>
 				</div>

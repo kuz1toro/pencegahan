@@ -1,24 +1,29 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
-	<section class="content-header">
-		<h1>
-			<a><?php if($this->uri->segment(2)=='add_lhp_step2'){echo 'Pemeriksaan Sewaktu-waktu';}else{echo 'Permohonan Rekomtek';} ?></a>
-			<small>Langkah 2 : Isi Data Pengelola/ Permohonan</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a><?php echo ucfirst($this->ion_auth->user()->row()->username); ?></a></li>
-			<li><a>Permohonan</a></li>
-			<li class="active">
-				<?php if($this->uri->segment(2)=='add_lhp_step2'){echo 'Pemeriksaan Sewaktu-waktu';}else{echo 'Permohonan Rekomtek';} ?>
-			</li>
-			<li><a>Step 1</a></li>
-			<li><a>Step 2</a></li>
-		</ol>
+	<section class="content-header" style="padding-top: 2px;">
+		<div class="row hidden-xs" style="text-align: right; margin-top: 5px; padding-right: 15px;">
+			<div class="ui steps" style="text-align: left;">
+				<div class="disabled step" style="padding: 0px 50px 0px 13px;">
+					<i class="green check square icon"></i>
+					<div class="" style="">
+						<div class="title" style="">Langkah 1</div>
+						<div class="description" style="">Pilih gedung yang akan diperiksa</div>
+					</div>
+				</div>
+				<div class="active step" style="padding: 0px 50px 0px 13px;">
+					<i class="file text icon"></i>
+					<div class="">
+						<div class="title">Langkah 2</div>
+						<div class="description">Isi data permohonan</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<!-- Main content -->
-	<section class="content">
+	<section class="content" style="padding-top: 5px;">
 		<?php
 		//Modal alert
 		pesanModal();
@@ -40,7 +45,7 @@
 		}
 		//form data
 		$attributes = array('class' => 'form-horizontal', 'id' => 'myForm');
-		echo form_open('prainspeksi_permohonan/Add_lhp_step3/'.$this->uri->segment(3).'', $attributes);
+		echo form_open('prainspeksi_permohonan/Add_step3/'.$this->uri->segment(3).'', $attributes);
 		?>
 
 		<div class="row">
@@ -237,15 +242,15 @@
 								<label class="col-sm-4 control-label" for="TipePermhn">Jenis Permohonan<a style="color:red">*</a></label>
 								<div class="col-sm-4 col-xs-12" style="">
 									<select class="form-control" name="TipePermhn" required >
-										<option value="">Pilih Salah Satu</option>
-										<option value="Sewaktu-waktu" <?php if($this->uri->segment(2)=='add_lhp_step2'){echo 'selected';}else{echo 'style="display: none;"';} ?>>Sewaktu-waktu</option>
+											<option value="">Pilih Salah Satu</option>
+											<option value="Sewaktu-waktu">Sewaktu-waktu</option>
 											<option value="Rekomtek Sistem">Rekomtek Sistem</option>
 											<option value="Rekomtek SKK">Rekomtek SKK</option>
 											<option value="SLF">SLF</option>
 											<option value="SLFn">SLFn</option>
-										</select>
-									</div>
+									</select>
 								</div>
+							</div>
 							</div>
 
 							<div class="col-sm-12">
@@ -264,9 +269,15 @@
 
 							<div class="form-actions" style="text-align: center;">
 								<div class="btn-group pull-right" role="group" aria-label="...">
-									<button class="btn btn-success" type="submit">Simpan</button>
-									<button class="btn btn-default" type="reset">Reset</button>
-									<button class="btn btn-default" onclick="history.go(-1);">Kembali</button>
+									<button class="btn btn-success tbl-simpan" type="button">Simpan</button>
+									<button class="btn btn-default tbl-reset" type="button">Reset</button>
+									<?php if (strlen($_SESSION['search_string_selected'])==0){
+										$next_page = $_SESSION['hal_skr'];
+									} else {
+										$next_page = ''.$_SESSION['hal_skr'].'?search_string='.$_SESSION['search_string_selected'].'&search_in='.$_SESSION['search_in_field'].'&order='.$_SESSION['order'].'&order_type='.$_SESSION['order_type'].'';
+									} ?>
+									<button class="btn btn-default tbl-back" val="<?php echo $next_page; ?>" type="button">Kembali</button>
+									<button class="btn btn-default tbl-batal" val="<?php echo ''.base_url().'prainspeksi_gedung/home'; ?>" type="button">Batal</button>
 								</div>
 							</div> <br>
 						</div>

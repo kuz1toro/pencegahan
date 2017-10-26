@@ -56,10 +56,4 @@ $route['translate_uri_dashes'] = FALSE;
 /*login*/
 $route['login'] = 'auth/index';
 /*step1 tambah lhp atau rekomtek*/
-$route['prainspeksi_permohonan/add_lhp_step1'] = 'prainspeksi_permohonan/Add_step1';
-$route['prainspeksi_permohonan/add_lhp_step1/(:any)'] = 'prainspeksi_permohonan/Add_step1/$1';
-$route['prainspeksi_permohonan/add_rekomtek_step1'] = 'prainspeksi_permohonan/Add_step1';
-$route['prainspeksi_permohonan/add_rekomtek_step1/(:any)'] = 'prainspeksi_permohonan/Add_step1/$1';
-/*step1 tambah lhp atau rekomtek*/
-$route['prainspeksi_permohonan/add_lhp_step2/(:any)'] = 'prainspeksi_permohonan/Add_step2/$1';
-$route['prainspeksi_permohonan/add_rekomtek_step2/(:any)'] = 'prainspeksi_permohonan/Add_step2/$1';
+

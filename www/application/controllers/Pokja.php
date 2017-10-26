@@ -16,21 +16,21 @@ class Pokja extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('permohonan_model');
-		$this->load->model('gedung_model');
+        $this->load->model('gedung_model');
+        $this->load->library(array('ion_auth','form_validation'));
+        $this->config->load('pagination', TRUE);
+        $this->load->helper('site_helper');
 
-        if(!$this->session->userdata('is_logged_in')){
-            redirect('admin/login');
-        }
-		
-		if($this->session->userdata('previlage') != 'pokja'){
-            redirect('admin/logout');
+        if ( ! $this->ion_auth->in_group('pokja'))
+        {
+            redirect('auth/logout');
         }
     }
  
 	public function home(){
 		$this->load->view('pokja/includes/header');
 		$this->load->view('pokja/home');
-		$this->load->view('pokja/includes/footer_home');
+		$this->load->view('pokja/includes/footer');
 	}
  
     /**

@@ -1,6 +1,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
+	<?php /**
 	<section class="content-header">
 		<h1>
 			Edit Permohonan
@@ -13,7 +14,7 @@
 				<?php echo ucfirst($this->uri->segment(2));?>
 			</li>
 		</ol>
-	</section>
+	</section> */ ?>
 
 	<!-- Main content -->
 	<section class="content">
@@ -259,9 +260,14 @@
 					<div class="box-footer clearfix">
 						<div class="form-actions" style="text-align: center;">
 							<div class="btn-group pull-right" role="group" aria-label="...">
-								<button class="btn btn-success" type="submit" data-toggle="confirmation" data-title="Apakah anda yakin?">Simpan</button>
-								<button class="btn btn-default" type="reset">Reset</button>
-								<button class="btn btn-default" onclick="history.go(-1);">Batal </button>
+								<button class="btn btn-success tbl-simpan" type="button">Simpan</button>
+								<button class="btn btn-default tbl-reset" type="button">Reset</button>
+								<?php if (strlen($_SESSION['search_string_selected'])==0){
+									$next_page = $_SESSION['hal_skr'];
+								} else {
+									$next_page = ''.$_SESSION['hal_skr'].'?search_string='.$_SESSION['search_string_selected'].'&search_in='.$_SESSION['search_in_field'].'&order='.$_SESSION['order'].'&order_type='.$_SESSION['order_type'].'';
+								} ?>
+								<button class="btn btn-default tbl-batal" val="<?php echo $next_page; ?>" type="button">Batal</button>
 							</div>
 						</div> <br>
 					</div>

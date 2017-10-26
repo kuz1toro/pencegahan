@@ -34,7 +34,7 @@
 	page. However, you can choose any other skin. Make sure you
 	apply the skin class to the body tag so the changes take effect.
 -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/admin_lte/css/skins/skin-yellow.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/admin_lte/css/skins/skin-green.min.css">
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/bootstrap/css/bootstrap-theme.min.css">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -60,7 +60,7 @@
 </head>
 
 
-<body class="hold-transition skin-yellow sidebar-collapse fixed sidebar-mini">
+<body class="hold-transition skin-green sidebar-collapse fixed sidebar-mini">
 	<div class="wrapper animsition">
 
 		<!-- Main Header -->

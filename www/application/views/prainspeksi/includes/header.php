@@ -25,6 +25,11 @@
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/iCheck/flat/green.css">
 	<!-- animsition -->
 	<link href="<?php echo base_url(); ?>assets/vendor/animsition/animsition.min.css" rel="stylesheet" type="text/css">
+	<!-- step, icon semantic-ui -->
+	<link href="<?php echo base_url(); ?>assets/vendor/semantic_ui/step.min.css" rel="stylesheet" type="text/css">
+	<link href="<?php echo base_url(); ?>assets/vendor/semantic_ui/icon.min.css" rel="stylesheet" type="text/css">
+	<!-- jquery-confirm -->
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/jquery_confirm/jquery-confirm.min.css">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/admin_lte/css/AdminLTE.min.css">
 	<!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -68,7 +73,7 @@
 				<!-- mini logo for sidebar mini 50x50 pixels -->
 				<span class="logo-mini"><b>SIBP</b></span>
 				<!-- logo for regular state and mobile devices -->
-				<span class="logo-lg" style="font-size:small;"><b>Bidang Pencegahan</b></span>
+				<span class="logo-lg" style=""><b>Bidang Pencegahan</b></span>
 			</a>
 
 			<!-- Header Navbar -->
@@ -80,6 +85,9 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
+
+
+
 				<!-- Navbar Right Menu -->
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav" >
@@ -231,6 +239,14 @@
 	</li>-->
 </ul>
 </div>
+<!-- judul halaman -->
+<?php 	
+	$url1=$this->uri->segment(1);
+	$url2=$this->uri->segment(2); 
+?>
+<div style="font-size:20px; text-align: center; color: white; padding-top: 7px">
+	<p><?php jdl_hal($url1,$url2); ?></p>
+</div>
 </nav>
 </header>
 <!-- Left side column. contains the logo and sidebar -->
@@ -267,8 +283,6 @@
 		<ul class="sidebar-menu">
 			<li class="header">HEADER</li>
 			<!-- Optionally, you can add icons to the links -->
-			<?php $url1=$this->uri->segment(1);
-			$url2=$this->uri->segment(2); ?>
 			<li class="<?php trv_state('home', $url1, $url2);?>"><a href="<?php echo site_url("auth/index")?>"><i class="fa fa-home"></i> <span>home</span></a></li>
 			<li class="treeview <?php trv_state('gedung', $url1, $url2);?>">
 				<a href="#"><i class="fa fa-building"></i> <span>Gedung</span>
@@ -278,7 +292,7 @@
 				</a>
 				<ul class="treeview-menu">
 					<li><a href="<?php echo site_url("prainspeksi_gedung/index")?>">Lihat/ edit</a></li>
-					<li><a href="<?php echo site_url("prainspeksi_gedung/add")?>">Tambah</a></li>
+					<li><a href="<?php echo site_url("prainspeksi_gedung/add")?>">Tambah Gedung</a></li>
 				</ul>
 			</li>
 			<li class="treeview <?php trv_state('permohonan', $url1, $url2);?>">
@@ -289,8 +303,7 @@
 				</a>
 				<ul class="treeview-menu">
 					<li><a href="<?php echo site_url("prainspeksi_permohonan/index")?>">Lihat/ edit</a></li>
-					<li><a href="<?php echo site_url("prainspeksi_permohonan/add_lhp_step1")?>"><i class="fa fa-plus-square"></i>Pemeriksaan Sewaktu-waktu</a></li>
-					<li><a href="<?php echo site_url("prainspeksi_permohonan/add_rekomtek_step1")?>"><i class="fa fa-plus-square"></i>Permohonan Rekomtek</a></li>
+					<li><a href="<?php echo site_url("prainspeksi_permohonan/Add_step1")?>">Tambah Permohonan</a></li>
 				</ul>
 			</li>
 			<li class="<?php trv_state('tutorial', $url1, $url2);?>"><a href="<?php echo site_url("prainspeksi_gedung/tutorial")?>"><i class="fa fa-question-circle"></i> <span>panduan</span></a></li>

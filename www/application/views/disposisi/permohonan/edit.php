@@ -1,19 +1,5 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-	<!-- Content Header (Page header) -->
-	<section class="content-header">
-		<h1>
-			Edit Permohonan
-			<small></small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a><?php echo ucfirst($this->ion_auth->user()->row()->username); ?></a></li>
-			<li><a>Permohonan</a></li>
-			<li class="active">
-				<?php echo ucfirst($this->uri->segment(2));?>
-			</li>
-		</ol>
-	</section>
 
 	<!-- Main content -->
 	<section class="content">
@@ -227,9 +213,9 @@
 
 						<div class="col-sm-12 kotak">
 							<div class="form-group" style="">
-								<label class="col-sm-12 control-label" for="KetPrainspeksi">Keterangan/ Catatan</label>
+								<label class="col-sm-12 control-label" for="KetPrainspeksi">Keterangan/ Catatan Prainspeksi</label>
 								<div class="col-sm-12 col-xs-12" style="">
-									<textarea type="text" class="form-control" name="KetPrainspeksi"  style="resize: none;" ><?php echo $permohonan[0]['KetPrainspeksi']; ?></textarea>
+									<textarea type="text" class="form-control" name="KetPrainspeksi"  style="resize: none;" readonly><?php echo $permohonan[0]['KetPrainspeksi']; ?></textarea>
 								</div>
 							</div>
 						</div>
@@ -292,6 +278,14 @@
 									<input type="text" class="form-control" name="KaInsp" id="KaInsp" placeholder="automatic" value= "<?php echo $permohonan[0]['KaInsp']; ?>" readonly>
 									<p class="help-block">Ka. Inspeksi</p>
 								</div>
+								<div class="col-sm-12">
+									<div class="form-group" style="">
+										<label class="col-sm-12 control-label" for="KetDisposisi">Keterangan/ Catatan Kasie</label>
+										<div class="col-sm-12 col-xs-12" style="">
+											<textarea type="text" class="form-control" name="KetDisposisi"  style="resize: none;" ><?php echo $permohonan[0]['KetDisposisi']; ?></textarea>
+										</div>
+									</div>
+								</div>
 							</div>
 					</div>
 
@@ -304,11 +298,11 @@
 									($permohonan[0]['StatusPermhn']=='1'){echo 'Prainspeksi';}else if
 									($permohonan[0]['StatusPermhn']=='2'){echo 'Disposisi';}else if ($permohonan[0]['StatusPermhn']=='3') {echo 'Inspeksi';} else if ($permohonan[0]['StatusPermhn']=='4') {echo 'Validasi';} else if ($permohonan[0]['StatusPermhn']=='5') {echo 'Finish';} else {echo 'Undefine';} ?>
 									</option>
-									<option value="1">Prainspeksi</option>
-									<option value="2">Disposisi</option>
-									<option value="3">Inspeksi</option>
-									<option value="4">Validasi</option>
-									<option value="5">Finish</option>
+									<option value="1" <?php if($permohonan[0]['StatusPermhn']==1){echo 'hidden';} ?> >Prainspeksi</option>
+									<option value="2" <?php if($permohonan[0]['StatusPermhn']==2){echo 'hidden';} ?> >Disposisi</option>
+									<option value="3" <?php if($permohonan[0]['StatusPermhn']==3){echo 'hidden';} ?> >Inspeksi</option>
+									<option value="4" <?php if($permohonan[0]['StatusPermhn']==4){echo 'hidden';} ?> >Validasi</option>
+									<option value="5" <?php if($permohonan[0]['StatusPermhn']==5){echo 'hidden';} ?> >Finish</option>
 								</select>
 							</div>
 						</div>
@@ -318,9 +312,14 @@
 				<div class="box-footer clearfix">
 					<div class="form-actions" style="text-align: center;">
 						<div class="btn-group pull-right" role="group" aria-label="...">
-							<button class="btn btn-success" type="submit" data-toggle="confirmation" data-title="Apakah anda yakin?">Simpan</button>
-							<button class="btn btn-default" type="reset">Reset</button>
-							<button class="btn btn-default" onclick="history.go(-1);">Batal </button>
+							<button class="btn btn-success tbl-simpan" type="button">Simpan</button>
+							<button class="btn btn-default tbl-reset" type="button">Reset</button>
+							<?php if (strlen($_SESSION['search_string_selected'])==0){
+								$next_page = $_SESSION['hal_skr'];
+							} else {
+								$next_page = ''.$_SESSION['hal_skr'].'?search_string='.$_SESSION['search_string_selected'].'&search_in='.$_SESSION['search_in_field'].'&order='.$_SESSION['order'].'&order_type='.$_SESSION['order_type'].'';
+							} ?>
+							<button class="btn btn-default tbl-batal" val="<?php echo $next_page; ?>" type="button">Batal</button>
 						</div>
 					</div> <br>
 				</div>

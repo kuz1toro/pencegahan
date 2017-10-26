@@ -42,10 +42,10 @@ class Disposisi extends CI_Controller {
 		//load gedung library
 		$this->load->library('gedung');
 		//all the posts sent by the view
-		$search_string = $this->input->post('search_string');
-		$search_in = $this->input->post('search_in');
-		$order = $this->input->post('order');
-		$order_type = $this->input->post('order_type');
+		$search_string = $this->input->get('search_string');
+		$search_in = $this->input->get('search_in');
+		$order = $this->input->get('order');
+		$order_type = $this->input->get('order_type');
 		//console_log( var_dump($order_type) );
 
 		//pagination settings
@@ -121,7 +121,16 @@ class Disposisi extends CI_Controller {
 				}else{
 					$this->session->set_flashdata('flash_message', 'not_updated');
 				}
-				redirect('disposisi/update_gedung/'.$id.'');
+				// next page setup
+				if (strlen($_SESSION['search_string_selected'])==0){
+					$next_page = $_SESSION['hal_skr'];
+				} else {
+					$next_page = ''.$_SESSION['hal_skr'].'?search_string='.$_SESSION['search_string_selected'].'&search_in='.$_SESSION['search_in_field'].'&order='.$_SESSION['order'].'&order_type='.$_SESSION['order_type'].'';
+				}
+
+				//redirect('disposisi/update_gedung/'.$id.'');
+				redirect($next_page);
+				
 
 			}//validation run
 
@@ -216,10 +225,13 @@ class Disposisi extends CI_Controller {
 		$id = $this->uri->segment(3);
 		if ($this->gedung_model->delete_gedung($id)){
 			$this->session->set_flashdata('flash_message', 'deleted');
-			$per_page = $this->per_page;
-			$num_buiding = $this->gedung_model->count_gedung();
-			$page = ceil($num_buiding/$per_page);
-			redirect('disposisi/list_gedung/'.$page.'');
+			// page setup
+			if (strlen($_SESSION['search_string_selected'])==0){
+				$next_page = $_SESSION['hal_skr'];
+			} else {
+				$next_page = ''.$_SESSION['hal_skr'].'?search_string='.$_SESSION['search_string_selected'].'&search_in='.$_SESSION['search_in_field'].'&order='.$_SESSION['order'].'&order_type='.$_SESSION['order_type'].'';
+			}
+			redirect($next_page);
 		}else{
 			$this->session->set_flashdata('flash_message', 'not deleted');
 		}
@@ -233,10 +245,10 @@ class Disposisi extends CI_Controller {
 	{	$this->load->library('disposisi_permohonan');
 		$for = 'monitoring';
 		//all the posts sent by the view
-		$search_string = $this->input->post('search_string');
-		$search_in = $this->input->post('search_in');
-		$order = $this->input->post('order');
-		$order_type = $this->input->post('order_type');
+		$search_string = $this->input->get('search_string');
+		$search_in = $this->input->get('search_in');
+		$order = $this->input->get('order');
+		$order_type = $this->input->get('order_type');
 
 		//pagination settings
 		$config['per_page'] = $this->per_page;
@@ -297,7 +309,8 @@ class Disposisi extends CI_Controller {
 					'TglPerbalST' => htmlDate2sqlDate($this->input->post('TglPerbalST')),
 					'Pokja' => $this->input->post('Pokja'),
 					'KaInsp' => $this->input->post('KaInsp'),
-					'StatusPermhn' => $this->input->post('StatusPermhn')
+					'StatusPermhn' => $this->input->post('StatusPermhn'),
+					'KetDisposisi' => $this->input->post('KetDisposisi')
 				);
 				//if the insert has returned true then we show the flash message
 				if($this->permohonan_model->update_permohonan($id, $data_to_store) == TRUE){
@@ -306,7 +319,16 @@ class Disposisi extends CI_Controller {
 				}else{
 					$this->session->set_flashdata('flash_message', 'not_updated');
 				}
-				redirect('disposisi/update/'.$id.'');
+				// next page setup
+				if (strlen($_SESSION['search_string_selected'])==0){
+					$next_page = $_SESSION['hal_skr'];
+				} else {
+					$next_page = ''.$_SESSION['hal_skr'].'?search_string='.$_SESSION['search_string_selected'].'&search_in='.$_SESSION['search_in_field'].'&order='.$_SESSION['order'].'&order_type='.$_SESSION['order_type'].'';
+				}
+
+				//redirect('disposisi/update/'.$id.'');
+				redirect($next_page);
+				
 
 			}//validation run
 
@@ -335,10 +357,13 @@ class Disposisi extends CI_Controller {
 		$id = $this->uri->segment(3);
 		if ($this->permohonan_model->delete_permohonan($id)){
 			$this->session->set_flashdata('flash_message', 'deleted');
-			$per_page = $this->per_page;
-			$num_permohonan = $this->permohonan_model->count_permohonan();
-			$page = ceil($num_permohonan/$per_page);
-			redirect('disposisi/monitoring/'.$page.'');
+			// page setup
+			if (strlen($_SESSION['search_string_selected'])==0){
+				$next_page = $_SESSION['hal_skr'];
+			} else {
+				$next_page = ''.$_SESSION['hal_skr'].'?search_string='.$_SESSION['search_string_selected'].'&search_in='.$_SESSION['search_in_field'].'&order='.$_SESSION['order'].'&order_type='.$_SESSION['order_type'].'';
+			}
+			redirect($next_page);
 		}
 	}//delete
 
@@ -348,10 +373,10 @@ class Disposisi extends CI_Controller {
 		$this->load->library('disposisi_permohonan');
 		$for = 'disposisi';
 		//all the posts sent by the view
-		$search_string = $this->input->post('search_string');
-		$search_in = $this->input->post('search_in');
-		$order = $this->input->post('order');
-		$order_type = $this->input->post('order_type');
+		$search_string = $this->input->get('search_string');
+		$search_in = $this->input->get('search_in');
+		$order = $this->input->get('order');
+		$order_type = $this->input->get('order_type');
 
 		//pagination settings
 		$config['per_page'] = $this->per_page;
@@ -394,36 +419,90 @@ class Disposisi extends CI_Controller {
 		//$data['manufacture'] = $this->gedung_model->get_gedung_by_id($id);
 		if ($this->input->server('REQUEST_METHOD') === 'POST')
 		{
+			$StatusPermhn = $this->input->post('StatusPermhn');
+			$id = $this->input->post('No_id');
 			//form validation
 			$this->form_validation->set_rules('Pokja', 'Pokja', 'required');
-			//$this->form_validation->set_rules('TglDisKabid', 'TglDisKabid', 'required');
-			//$this->form_validation->set_rules('Kecamatan', 'Kecamatan', 'required');
-			//$this->form_validation->set_rules('Kelurahan', 'Kelurahan', 'required');
-			//$this->form_validation->set_rules('Wilayah', 'Wilayah', 'required');
-			//$this->form_validation->set_rules('NoImb', 'NoImb', 'required');
-			//$this->form_validation->set_rules('TglImb', 'TglImb', 'required');
 			$this->form_validation->set_error_delimiters('<div class="alert alert-error"><a class="close" data-dismiss="alert">�</a><strong>', '</strong></div>');
 
 
 			//if the form has passed through the validation
 			if ($this->form_validation->run())
 			{
-				$data_to_store = array(
-					'TglDisKadis' => htmlDate2sqlDate($this->input->post('TglDisKadis')),
-					'TglDisKabid' => htmlDate2sqlDate($this->input->post('TglDisKabid')),
-					'TglDisKasi' => htmlDate2sqlDate($this->input->post('TglDisKasi')),
-					'TglPerbalST' => htmlDate2sqlDate($this->input->post('TglPerbalST')),
-					'Pokja' => $this->input->post('Pokja'),
-					'KaInsp' => $this->input->post('KaInsp'),
-					'StatusPermhn' => $this->input->post('StatusPermhn')
-				);
-				$id = $this->input->post('No_id');
+				if ($StatusPermhn == 1){
+					$data_to_store = array(
+						'NamaPengelola' => $this->input->post('NamaPengelola'),
+						'KetPrainspeksi' => $this->input->post('KetPrainspeksi'),
+						'NoTelpPengelola' => $this->input->post('NoTelpPengelola'),
+						'AlamatPengelola' => $this->input->post('AlamatPengelola'),
+						'NoPermhn' => $this->input->post('NoPermhn'),
+						'TglSuratDiterima' => htmlDate2sqlDate($this->input->post('TglSuratDiterima')),
+						'TglPermhn' => htmlDate2sqlDate($this->input->post('TglPermhn')),
+						'TipePermhn' => $this->input->post('TipePermhn'),
+						'SuratPermohonan' => $this->input->post('SuratPermohonan'),
+						'DokTeknisGedung' => $this->input->post('DokTeknisGedung'),
+						'DokInventarisApar' => $this->input->post('DokInventarisApar'),
+						'DokMKKG' => $this->input->post('DokMKKG'),
+						'FtcpGambarSchematic' => $this->input->post('FtcpGambarSchematic'),
+						'FtcpSiteplan' => $this->input->post('FtcpSiteplan'),
+						'FtcpRkkSlf' => $this->input->post('FtcpRkkSlf'),
+						'FtcpIMB' => $this->input->post('FtcpIMB'),
+						'FtcpSkkAkhir' => $this->input->post('FtcpSkkAkhir'),
+						'TglDisKadis' => htmlDate2sqlDate($this->input->post('TglDisKadis')),
+						'TglDisKabid' => htmlDate2sqlDate($this->input->post('TglDisKabid')),
+						'TglDisKasi' => htmlDate2sqlDate($this->input->post('TglDisKasi')),
+						'TglPerbalST' => htmlDate2sqlDate($this->input->post('TglPerbalST')),
+						'StatusPermhn' => $StatusPermhn,
+						'KetDisposisi' => $this->input->post('KetDisposisi')
+					);
+				}else if($StatusPermhn == 3){
+					$data_to_store = array(
+						'NamaPengelola' => $this->input->post('NamaPengelola'),
+						'KetPrainspeksi' => $this->input->post('KetPrainspeksi'),
+						'NoTelpPengelola' => $this->input->post('NoTelpPengelola'),
+						'AlamatPengelola' => $this->input->post('AlamatPengelola'),
+						'NoPermhn' => $this->input->post('NoPermhn'),
+						'TglSuratDiterima' => htmlDate2sqlDate($this->input->post('TglSuratDiterima')),
+						'TglPermhn' => htmlDate2sqlDate($this->input->post('TglPermhn')),
+						'TipePermhn' => $this->input->post('TipePermhn'),
+						'SuratPermohonan' => $this->input->post('SuratPermohonan'),
+						'DokTeknisGedung' => $this->input->post('DokTeknisGedung'),
+						'DokInventarisApar' => $this->input->post('DokInventarisApar'),
+						'DokMKKG' => $this->input->post('DokMKKG'),
+						'FtcpGambarSchematic' => $this->input->post('FtcpGambarSchematic'),
+						'FtcpSiteplan' => $this->input->post('FtcpSiteplan'),
+						'FtcpRkkSlf' => $this->input->post('FtcpRkkSlf'),
+						'FtcpIMB' => $this->input->post('FtcpIMB'),
+						'FtcpSkkAkhir' => $this->input->post('FtcpSkkAkhir'),
+						'TglDisKadis' => htmlDate2sqlDate($this->input->post('TglDisKadis')),
+						'TglDisKabid' => htmlDate2sqlDate($this->input->post('TglDisKabid')),
+						'TglDisKasi' => htmlDate2sqlDate($this->input->post('TglDisKasi')),
+						'TglPerbalST' => htmlDate2sqlDate($this->input->post('TglPerbalST')),
+						'Pokja' => $this->input->post('Pokja'),
+						'KaInsp' => $this->input->post('KaInsp'),
+						'StatusPermhn' => $StatusPermhn,
+						'KetDisposisi' => $this->input->post('KetDisposisi')
+					);
+				}else{
+
+				}
+								
 				//if the insert has returned true then we show the flash message
 				if($this->permohonan_model->update_permohonan($id, $data_to_store) == TRUE){
-					$data['myflash_message'] = TRUE;
+					$this->session->set_flashdata('flash_message', 'added');
 				}else{
-					$data['myflash_message'] = FALSE;
+					$this->session->set_flashdata('flash_message', 'gagal');
 				}
+
+				// next page setup
+				if (strlen($_SESSION['search_string_selected'])==0){
+					$next_page = $_SESSION['hal_skr'];
+				} else {
+					$next_page = ''.$_SESSION['hal_skr'].'?search_string='.$_SESSION['search_string_selected'].'&search_in='.$_SESSION['search_in_field'].'&order='.$_SESSION['order'].'&order_type='.$_SESSION['order_type'].'';
+				}
+
+				//redirect('disposisi/update/'.$id.'');
+				redirect($next_page);
 
 			}
 
@@ -446,142 +525,24 @@ class Disposisi extends CI_Controller {
 
 	public function validasi()
 	{
-
 		//all the posts sent by the view
-		$search_string = $this->input->post('search_string');
-		$search_in = $this->input->post('search_in');
-		$order = $this->input->post('order');
-		$order_type = $this->input->post('order_type');
+		$this->load->library('disposisi_permohonan');
+		$for = 'validasi';
+		//all the posts sent by the view
+		$search_string = $this->input->get('search_string');
+		$search_in = $this->input->get('search_in');
+		$order = $this->input->get('order');
+		$order_type = $this->input->get('order_type');
 
 		//pagination settings
 		$config['per_page'] = $this->per_page;
-
 		$config['base_url'] = base_url().'disposisi/validasi';
-		$config['use_page_numbers'] = TRUE;
-		$config['num_links'] = 10;
-		$config['full_tag_open'] = '<ul class="pagination">';
-		$config['full_tag_close'] = '</ul>';
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
-		$config['cur_tag_open'] = '<li class="active"><span>';
-		$config['cur_tag_close'] = '<span class="sr-only">(current)</span></span></li>';
-		$config['prev_tag_open'] = '<li>';
-		$config['prev_tag_close'] = '</li>';
-		$config['next_tag_open'] = '<li>';
-		$config['next_tag_close'] = '</li>';
-		$config['first_link'] = '&laquo;';
-		$config['prev_link'] = '&lsaquo;';
-		$config['last_link'] = '&raquo;';
-		$config['next_link'] = '&rsaquo;';
-		$config['first_tag_open'] = '<li>';
-		$config['first_tag_close'] = '</li>';
-		$config['last_tag_open'] = '<li>';
-		$config['last_tag_close'] = '</li>';
-
-		//limit end
 		$page = $this->uri->segment(3);
 
-		//math to get the initial record to be select in the database
-		$limit_end = ($page * $config['per_page']) - $config['per_page'];
-		if ($limit_end < 0){
-			$limit_end = 0;
-		}
+		//use gedung lib untuk paginasi
+		$data = $this->disposisi_permohonan->list_permohonan($search_string, $search_in, $order, $order_type, $this->uri->segment(3), $config['per_page'], $for);
 
-		//if order type was changed
-		if($order_type){
-			$filter_session_data['order_type'] = $order_type;
-		}
-		else{
-			//we have something stored in the session?
-			if($this->session->userdata('order_type')){
-				$order_type = $this->session->userdata('order_type');
-			}else{
-				//if we have nothing inside session, so it's the default "Asc"
-				$order_type = 'Asc';
-			}
-		}
-		//make the data type var avaible to our view
-		$data['order_type_selected'] = $order_type;
-
-
-		//we must avoid a page reload with the previous session data
-		//if any filter post was sent, then it's the first time we load the content
-		//in this case we clean the session filter data
-		//if any filter post was sent but we are in some page, we must load the session data
-
-		//filtered && || paginated
-		if($search_string !== false && $order !== false || $this->uri->segment(3) == true){
-
-			/*
-			The comments here are the same for line 79 until 99
-
-			if post is not null, we store it in session data array
-			if is null, we use the session data already stored
-			we save order into the the var to load the view with the param already selected
-			*/
-			if($search_string){
-				$filter_session_data['search_string_selected'] = $search_string;
-				$filter_session_data['search_in_field'] = $search_in;
-			}else{
-				$search_string = $this->session->userdata('search_string_selected');
-				$search_in = $this->session->userdata('search_in_field');
-			}
-			$data['search_string_selected'] = $search_string;
-			$data['search_in_field'] = $search_in;
-
-			if($order){
-				$filter_session_data['order'] = $order;
-			}
-			else{
-				$order = $this->session->userdata('order');
-			}
-			$data['order'] = $order;
-
-			//save session data into the session
-			if(isset($filter_session_data)){
-				$this->session->set_userdata($filter_session_data);
-			}
-
-			//fetch sql data into arrays
-			$data['count_products']= $this->permohonan_model->count_permohonan_disposisi($search_string, $search_in, $order, 'validasi');
-			$config['total_rows'] = $data['count_products'];
-
-			//fetch sql data into arrays
-			if($search_string){
-				if($order){
-					$data['manufacturers'] = $this->permohonan_model->get_permohonan_disposisi($search_string, $search_in, $order, $order_type, $config['per_page'],$limit_end, 'validasi');
-				}else{
-					$data['manufacturers'] = $this->permohonan_model->get_permohonan_disposisi($search_string, $search_in, '', $order_type, $config['per_page'],$limit_end, 'validasi');
-				}
-			}else{
-				if($order){
-					$data['manufacturers'] = $this->permohonan_model->get_permohonan_disposisi('', $search_in, $order, $order_type, $config['per_page'],$limit_end, 'validasi');
-				}else{
-					$data['manufacturers'] = $this->permohonan_model->get_permohonan_disposisi('', $search_in, '', $order_type, $config['per_page'],$limit_end, 'validasi');
-				}
-			}
-
-		}else{
-
-			//clean filter data inside section
-			$filter_session_data['manufacture_selected'] = null;
-			$filter_session_data['search_string_selected'] = null;
-			$filter_session_data['search_in_field'] = null;
-			$filter_session_data['order'] = null;
-			$filter_session_data['order_type'] = null;
-			$this->session->set_userdata($filter_session_data);
-
-			//pre selected options
-			$data['search_string_selected'] = '';
-			$data['search_in_field'] = 'NamaPengelola';
-			$data['order'] = 'id';
-
-			//fetch sql data into arrays
-			$data['count_products']= $this->permohonan_model->count_permohonan_disposisi('','','', 'validasi');
-			$data['manufacturers'] = $this->permohonan_model->get_permohonan_disposisi('', 'NamaPengelola', '', $order_type, $config['per_page'],$limit_end, 'validasi');
-			$config['total_rows'] = $data['count_products'];
-
-		}//!isset($search_string) && !isset($order)
+		$config['total_rows'] = $data['count_permohonans'];
 
 		//initializate the panination helper
 		$this->pagination->initialize($config);
@@ -589,14 +550,13 @@ class Disposisi extends CI_Controller {
 		//load the view
 		$data['main_content'] = 'disposisi/permohonan/validasi';
 		$this->load->view('disposisi/includes/template', $data);
-
 	}
 
 	public function validasi_step2()
 	{
 		//product id
-		$id = $this->uri->segment(4);
-		$data['manufacture'] = $this->permohonan_model->get_permohonan_dan_gedung_by_id($id);
+		$id = $this->uri->segment(3);
+		$data['permhn_n_gedung'] = $this->permohonan_model->get_permohonan_dan_gedung_by_id($id);
 		//load the view
 		$data['main_content'] = 'disposisi/permohonan/validasi_step2';
 		$this->load->view('disposisi/includes/template', $data);
@@ -620,20 +580,34 @@ class Disposisi extends CI_Controller {
 			//if the form has passed through the validation
 			if ($this->form_validation->run())
 			{
+				$StatusPermhn = $this->input->post('StatusPermhn');
 				$data_to_store = array(
-					'StatusPermhn' => $this->input->post('StatusPermhn')
+					'StatusPermhn' => $StatusPermhn,
+					'KetDisposisi' => $this->input->post('KetDisposisi')
 
 				);
 				$id = $this->input->post('No_id');
 				//if the insert has returned true then we show the flash message
 				if($this->permohonan_model->update_permohonan($id, $data_to_store) == TRUE){
-					$this->session->set_flashdata('flash_message', 'updated');
-					$data['myflash_message'] = TRUE;
+					$status_val = TRUE;
 				}else{
-					$this->session->set_flashdata('flash_message', 'not_updated');
-					$data['myflash_message'] = FALSE;
+					$status_val = FALSE;
 				}
-
+				//setup flash message
+				if($StatusPermhn==5 && $status_val){
+					$this->session->set_flashdata('flash_message', 'validated_yes');
+				}else if($StatusPermhn==3 && $status_val){
+					$this->session->set_flashdata('flash_message', 'validated_no');
+				}else{
+					$this->session->set_flashdata('flash_message', 'not_validated');
+				}
+				// next page setup
+				if (strlen($_SESSION['search_string_selected'])==0){
+					$next_page = $_SESSION['hal_skr'];
+				} else {
+					$next_page = ''.$_SESSION['hal_skr'].'?search_string='.$_SESSION['search_string_selected'].'&search_in='.$_SESSION['search_in_field'].'&order='.$_SESSION['order'].'&order_type='.$_SESSION['order_type'].'';
+				}
+				redirect($next_page);
 			}
 
 		}
